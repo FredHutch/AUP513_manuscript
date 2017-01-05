@@ -1,0 +1,373 @@
+\documentclass[11pt]{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+%---------------------------------------------------------------------%
+% PROGRAM: Correlation_AUP513.Rnw
+%
+% DESCRIPTION: This code generates correlation plots for AUP513 manuscript.
+%
+% CODED BY: Bhavesh Borate on 1/4/2017
+% PROJECT : AUP513 manuscript: Correlation between ICS and other assays
+%
+%
+% MAINTENANCE HISTORY:
+%   Date        Programmer       Description
+%   1/4/2017    Bhavesh Borate   Version 0.1
+%
+%----------------------------------------------------------------------%
+\usepackage{url}
+\usepackage{float}
+\usepackage{color, pdfcolmk}
+\usepackage{natbib}
+\renewcommand{\bibsection}{}
+\usepackage[hmargin=2cm, vmargin=3cm]{geometry}
+\usepackage{fancyhdr, graphicx, lastpage, ifthen, lscape, xcolor}
+\usepackage{etoolbox}
+\usepackage{pdflscape}
+\usepackage[absolute]{textpos}
+\usepackage{rotating} %for xtable sideways
+\usepackage{verbatim}
+\usepackage{longtable}
+\usepackage{subfigure}
+\usepackage{changepage}
+\usepackage{chngcntr}
+% \counterwithin{figure}{subsection}
+% \counterwithin{table}{subsection}
+\newcommand{\scscst}{\scriptscriptstyle}
+\newcommand{\scst}{\scriptstyle}
+\usepackage[font=normalsize,skip=4pt,justification=centering]{caption}
+\usepackage[parfill]{parskip}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\usepackage{titlesec}
+\usepackage{fixltx2e}
+
+\setcounter{secnumdepth}{4}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+
+
+\listfiles
+
+\newcommand{\organiz}{SCHARP}
+\newcommand{\uident}{bborate}
+\newcommand{\Rver}{R version 3.2.1 }
+\newcommand{\DynLength}{0.2}
+%this is to adjust header and footer in landscaped pages
+\fancypagestyle{lscape}{%
+    \newgeometry{hmargin=1.0cm,vmargin=0.5cm}
+    \fancyhf{} % clear all header and footer fields
+    \fancyfoot[L]{
+    \begin{textblock}{1}(21.12,1.75){\color{gray}\rotatebox{90}{Page \thepage{}~of~\pageref{LastPage}}}\end{textblock}}
+    \fancyfoot[R]{
+    \begin{textblock}{19.7}[-0.01,{\DynLength}](1.5,23.20){\color{gray}\rotatebox{90}{\Rver}}\end{textblock}}
+    \setlength{\TPHorizModule}{1cm}
+    \setlength{\TPVertModule}{1cm}
+    \renewcommand{\headrulewidth}{0.0pt}
+    \renewcommand{\footrulewidth}{0.0pt}}
+%this is to adjust header and footer in regular pages
+\fancypagestyle{regularpage}{
+    \pagestyle{fancy}
+    \newgeometry{textheight=624.25346pt,headheight=12.0pt,headsep=25.0pt,footskip=56.0pt,voffset=0.0pt,hmargin=2cm,vmargin=3cm}
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0.4pt}
+    \fancyhead[L]{}
+    \fancyhead[R]{\bfseries IPV 001ABMG}
+    \fancyfoot[R]{Page \thepage{}~of~\pageref{LastPage}}
+    \fancyfoot[L]{\Rver}}
+%set header and footer for first page
+\renewcommand{\headrulewidth}{0.8pt}
+\renewcommand{\footrulewidth}{0.8pt}
+\fancyhead[L]{ \includegraphics[height=1.25cm, width=5cm]{logos/scharp2.png}}
+\fancyhead[R]{ \includegraphics[width=4cm]{logos/FredHutch_h_tag_4col_CMYK_tm.png} }
+\fancyhead[C]{ \includegraphics[height=1.25cm, width=3cm]{logos/new_VISC_logo_color.jpg} }
+\fancyfoot[C]{}
+\fancyfoot[L]{\Rver}
+\fancyfoot[R]{Page \thepage{}~of~\pageref{LastPage}}
+%page settings
+\setlength{\footskip}{56pt}
+\pagestyle{fancy}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+\newcommand{\tab}{\hspace*{2cm}} %this sets length of horizontal space from tab
+\newcommand{\bat}{\vspace*{2pc}} %this sets length of vertical space from tab
+%font settings
+\textnormal {\normalfont}
+%get current date into insertdate
+\makeatletter
+\let\insertdate\@date
+\makeatother
+
+\bat
+\Large \textbf{\\ AUP513: Correlation plots for manuscript} \\
+\large
+\insertdate \\ \\
+\textbf{To:} Georgia Tomaras \\
+\textbf{From:} Raphael Gottardo, Bhavesh Borate \\
+\textbf{cc:} Alicia Sato, Eva Chung \\
+
+\normalsize
+\textbf{Overview} \\
+This report presents the correlations between CD4/CD8 T-cell responses measured through ICS assay and the B-cell response measured through BAMA, GTL ADCC and NAb assays for the groups receiving NYVAC-C-KC vaccines (Groups 5 and 6). 
+
+\listoffigures
+
+
+\newpage
+%change color of header and footer text to gray
+\makeatletter
+\patchcmd{\@fancyhead}{\rlap}{\color{gray}\rlap}{}{}
+\patchcmd{\headrule}{\hrule}{\color{gray}\hrule}{}{}
+\patchcmd{\@fancyfoot}{\rlap}{\color{gray}\rlap}{}{}
+\patchcmd{\footrule}{\hrule}{\color{gray}\hrule}{}{}
+\makeatother
+%set header and footer for all pages from here
+\newpage
+\newgeometry{hmargin=2cm,vmargin=3cm}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{}
+\fancyhead[R]{\bfseries IPV 001ABMG}
+\fancyfoot[R]{Page \thepage{}~of~\pageref{LastPage}}
+
+
+% \makeatletter
+% \renewcommand*\l@figure{\@dottedtocline{1}{1.5em}{3.0em}}
+% \renewcommand*\l@table{\@dottedtocline{1}{1.5em}{3.0em}}
+% \makeatother
+
+
+
+
+\newpage
+\pagestyle{lscape}
+\begin{landscape}
+
+\newpage
+
+% {\scriptsize
+% \tab \textbf{Footnote: \newline}
+% \tab *  -- Percentages in this group are computed using total number not enrolled as denominator. \newline
+% \tab ** -- Percent enrolled is computed as fraction of N screened. Subsequent percentages in this group are computed as a fraction of N enrolled.\newline
+% }
+
+
+
+\begin{figure}[H]
+\begin{center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/corrplot_Grp5_BAMA-1} 
+
+\end{knitrout}
+\caption{Group 5, ICS v/s BAMA by antigen and cytokine colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[H]
+\begin{center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/corrplot_Grp5_ADCC-1} 
+
+\end{knitrout}
+\caption{Group 5, ICS v/s ADCC GTL assay by antigen and cytokine colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[H]
+\begin{center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/corrplot_Grp5_NAb-1} 
+
+\end{knitrout}
+\caption{Group 5, ICS v/s NAB assay by antigen and cytokine colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
+\end{center}
+\end{figure}
+
+
+
+\begin{figure}[H]
+\begin{center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/corrplot_Grp6_BAMA-1} 
+
+\end{knitrout}
+\caption{Group 6, ICS v/s BAMA by antigen and cytokine colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[H]
+\begin{center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/corrplot_Grp6_ADCC-1} 
+
+\end{knitrout}
+\caption{Group 6, ICS v/s ADCC GTL assay by antigen and cytokine colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[H]
+\begin{center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/corrplot_Grp6_NAb-1} 
+
+\end{knitrout}
+\caption{Group 6, ICS v/s NAB assay by antigen and cytokine colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
+\end{center}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\textbf{Analysis on Pooled Antigen}
+
+
+% {\scriptsize
+% \tab \textbf{Footnote: \newline}
+% \tab *  -- Percentages in this group are computed using total number not enrolled as denominator. \newline
+% \tab ** -- Percent enrolled is computed as fraction of N screened. Subsequent percentages in this group are computed as a fraction of N enrolled.\newline
+% }
+
+
+
+\begin{figure}[H]
+\begin{center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/corrplot_Grp5_BAMA_pooledAntigen-1} 
+
+\end{knitrout}
+\caption{Group 5, ICS v/s BAMA by cytokine and pooled antigen colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[H]
+\begin{center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/corrplot_Grp5_ADCC_pooledAntigen-1} 
+
+\end{knitrout}
+\caption{Group 5, ICS v/s ADCC GTL assay by cytokine and pooled antigen colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[H]
+\begin{center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/corrplot_Grp5_NAb_pooledAntigen-1} 
+
+\end{knitrout}
+\caption{Group 5, ICS v/s NAB assay by cytokine and pooled antigen colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
+\end{center}
+\end{figure}
+
+
+
+\begin{figure}[H]
+\begin{center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/corrplot_Grp6_BAMA_pooledAntigen-1} 
+
+\end{knitrout}
+\caption{Group 6, ICS v/s BAMA by cytokine and pooled antigen colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[H]
+\begin{center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/corrplot_Grp6_ADCC_pooledAntigen-1} 
+
+\end{knitrout}
+\caption{Group 6, ICS v/s ADCC GTL assay by cytokine and pooled antigen colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[H]
+\begin{center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/corrplot_Grp6_NAb_pooledAntigen-1} 
+
+\end{knitrout}
+\caption{Group 6, ICS v/s NAB assay by cytokine and pooled antigen colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
+\end{center}
+\end{figure}
+
+
+
+
+
+
+
+
+\end{landscape}
+\end{document}
