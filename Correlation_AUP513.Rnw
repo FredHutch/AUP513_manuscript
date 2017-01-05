@@ -436,6 +436,7 @@ corsDat$Group <- "Group 6"
 corsDat$Assay <- "NAb"
 corsAll <- rbind(corsAll, corsDat)
 corsAll$Cytokine.Antigen <- interaction(corsAll$ics.cytokine, corsAll$ics.antigen)
+corsAll <- corsAll[order(-corsAll$cor),]
 @
 \caption{Group 6, ICS v/s NAB assay by cytokine and pooled antigen colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
 \end{center}
@@ -450,18 +451,20 @@ corsAll$Cytokine.Antigen <- interaction(corsAll$ics.cytokine, corsAll$ics.antige
 # CD4 and CD8
 dat <- corsAll[corsAll$Group=="Group 5",]
 
-ggplot(dat, aes(x=cor, y=Cytokine.Antigen, colour=ics.tcellsub, shape=Assay)) + theme_bw() + geom_point(size=5, alpha=0.6) +
-  scale_colour_manual(name="T-cell population", values=c("CD4"="red", "CD8"="blue")) +
+ggplot(dat, aes(x=cor, y=reorder(Cytokine.Antigen, cor, median), colour=Assay)) + theme_bw() + geom_point(size=5, alpha=0.6) +
+  scale_colour_manual(name="T-cell population", values=c("BAMA"="red", "ADCC GTL"="blue", "NAb"="green")) +
   xlab("Correlation") +
   ylab("Cytokine Antigen Combination") +
+  facet_wrap(~ics.tcellsub,ncol=1) +
   theme(#plot.margin = unit(c(1,1,0,1), "cm"),
     legend.position="top",
     legend.title=element_text(size=12,vjust=-1.6),
     legend.text=element_text(size=12,vjust=-1.6),
     axis.text.x = element_text(size=10),
-    axis.text.y = element_text(size=10)) + geom_vline(xintercept = 0, linetype = "longdash")
+    axis.text.y = element_text(size=10),
+    strip.text.x = element_text(size=13)) + geom_vline(xintercept = 0, linetype = "longdash") 
 @
-\caption{Plot showing correlation between T-cell ICS assay and B-cell assays for each cytokine antigen combination colored by CD4/CD8 T-cell populations in Group 5}
+\caption{Plot showing correlation between T-cell ICS assay and B-cell assays in Group 5 faceted by CD4/CD8 T-cell populations and ordered by median correlation for each cytokine antigen combination.}
 \end{center}
 \end{figure}
 
@@ -473,18 +476,20 @@ ggplot(dat, aes(x=cor, y=Cytokine.Antigen, colour=ics.tcellsub, shape=Assay)) + 
 # CD4 and CD8
 dat <- corsAll[corsAll$Group=="Group 6",]
 
-ggplot(dat, aes(x=cor, y=Cytokine.Antigen, colour=ics.tcellsub, shape=Assay)) + theme_bw() + geom_point(size=5, alpha=0.6) +
-  scale_colour_manual(name="T-cell population", values=c("CD4"="red", "CD8"="blue")) +
+ggplot(dat, aes(x=cor, y=reorder(Cytokine.Antigen, cor, median), colour=Assay)) + theme_bw() + geom_point(size=5, alpha=0.6) +
+  scale_colour_manual(name="T-cell population", values=c("BAMA"="red", "ADCC GTL"="blue", "NAb"="green")) +
   xlab("Correlation") +
   ylab("Cytokine Antigen Combination") +
+  facet_wrap(~ics.tcellsub,ncol=1) +
   theme(#plot.margin = unit(c(1,1,0,1), "cm"),
     legend.position="top",
     legend.title=element_text(size=12,vjust=-1.6),
     legend.text=element_text(size=12,vjust=-1.6),
     axis.text.x = element_text(size=10),
-    axis.text.y = element_text(size=10)) + geom_vline(xintercept = 0, linetype = "longdash")
+    axis.text.y = element_text(size=10),
+    strip.text.x = element_text(size=13)) + geom_vline(xintercept = 0, linetype = "longdash") 
 @
-\caption{Plot showing correlation between T-cell ICS assay and B-cell assays for each cytokine antigen combination colored by CD4/CD8 T-cell populations in Group 6}
+\caption{Plot showing correlation between T-cell ICS assay and B-cell assays in Group 6 faceted by CD4/CD8 T-cell populations and ordered by median correlation for each cytokine antigen combination.}
 \end{center}
 \end{figure}
 
