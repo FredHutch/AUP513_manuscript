@@ -244,7 +244,7 @@ ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.tcellsub)) + theme_bw()
     axis.text.x = element_text(size=10, angle=45, hjust=1),
     axis.text.y = element_text(size=10),
     strip.text.x = element_text(size=15),
-    strip.text.y = element_text(size=15)) + scale_y_sqrt() 
+    strip.text.y = element_text(size=15))
 
 corsAll <- rbind(corsCD4, corsCD8)
 corsAll$Group <- "Group 5"
@@ -280,7 +280,7 @@ ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.tcellsub)) + theme_bw()
     axis.text.x = element_text(size=10, angle=45, hjust=1),
     axis.text.y = element_text(size=10),
     strip.text.x = element_text(size=15),
-    strip.text.y = element_text(size=15)) + scale_y_sqrt() 
+    strip.text.y = element_text(size=15)) 
 
 corsDat <- rbind(corsCD4, corsCD8)
 corsDat$Group <- "Group 5"
@@ -317,7 +317,7 @@ ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.tcellsub)) + theme_bw()
     axis.text.x = element_text(size=10, angle=45, hjust=1),
     axis.text.y = element_text(size=10),
     strip.text.x = element_text(size=15),
-    strip.text.y = element_text(size=15)) + scale_y_sqrt() 
+    strip.text.y = element_text(size=15))
 
 corsDat <- rbind(corsCD4, corsCD8)
 corsDat$Group <- "Group 5"
@@ -355,7 +355,7 @@ ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.tcellsub)) + theme_bw()
     axis.text.x = element_text(size=10, angle=45, hjust=1),
     axis.text.y = element_text(size=10),
     strip.text.x = element_text(size=15),
-    strip.text.y = element_text(size=15))  + scale_y_sqrt() 
+    strip.text.y = element_text(size=15))  
 
 corsDat <- rbind(corsCD4, corsCD8)
 corsDat$Group <- "Group 6"
@@ -392,7 +392,7 @@ ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.tcellsub)) + theme_bw()
     axis.text.x = element_text(size=10, angle=45, hjust=1),
     axis.text.y = element_text(size=10),
     strip.text.x = element_text(size=15),
-    strip.text.y = element_text(size=15))  + scale_y_sqrt() 
+    strip.text.y = element_text(size=15)) 
 
 corsDat <- rbind(corsCD4, corsCD8)
 corsDat$Group <- "Group 6"
@@ -429,7 +429,7 @@ ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.tcellsub)) + theme_bw()
     axis.text.x = element_text(size=10, angle=45, hjust=1),
     axis.text.y = element_text(size=10),
     strip.text.x = element_text(size=15),
-    strip.text.y = element_text(size=15))  + scale_y_sqrt() + scale_x_sqrt()
+    strip.text.y = element_text(size=15))  
 
 corsDat <- rbind(corsCD4, corsCD8)
 corsDat$Group <- "Group 6"
