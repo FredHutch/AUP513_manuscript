@@ -123,7 +123,8 @@
     \renewcommand{\headrulewidth}{0.4pt}
     \renewcommand{\footrulewidth}{0.4pt}
     \fancyhead[L]{}
-    \fancyhead[R]{\bfseries IPV 001ABMG}
+    \fancyhead[R]{\bfseries AUP513}
+    \fancyhead[C]{}
     \fancyfoot[R]{Page \thepage{}~of~\pageref{LastPage}}
     \fancyfoot[L]{\Rver}}
 %set header and footer for first page
@@ -178,7 +179,7 @@ This report presents the correlations between CD4/CD8 T-cell responses measured 
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 \fancyhead[L]{}
-\fancyhead[R]{\bfseries IPV 001ABMG}
+\fancyhead[R]{\bfseries AUP513}
 \fancyfoot[R]{Page \thepage{}~of~\pageref{LastPage}}
 
 
@@ -188,8 +189,29 @@ This report presents the correlations between CD4/CD8 T-cell responses measured 
 % \makeatother
 
 \newpage
+\pagestyle{regularpage}
+\section{Summary}
+High number of positive correlations with BAMA, ADCC GTL and NAb assays are seen in CD4 as compared to CD8 T-cell population in groups receiving NYVAC-C-KC vaccines. Most of these correlations fail to be significant due to low sample size. 
+
+\section{Statistical Methods}
+The T-cell responses from ICS assay were investigated for correlation with B-cell responses from BAMA, GTL ADCC and NAb assays at week 26 for the groups receiving NYVAC-C-KC vaccines (Groups 5 and 6). Specifically, the DMSO-adjusted percent positivity for each cytokine-antigen(pooled) combination for CD4 and CD8 T-cell populations were assessed for correlation with 
+\begin{enumerate}
+\item AUC against gp120.TV1 antigen for the IgG subclass in the BAMA assay,
+\item Titer against the gp120.TV1 antigen in the ADCC GTL assay, and
+\item Titer against the MW965.26 isolate in the TZM.bl NAb assay.
+\end{enumerate}
+
+Scatter plots (Figures 1-6) for each cytokine-antigen combination from the ICS assay were made against the B-cell assays for each group and T-cell population and annotated with Spearman's rank-order correlation. Significance of the correlations was derived using a one-sided p-value with the alternative that true correlation is greater than 0. A simple linear regression line was fit to the data for each Group and T-cell population. 
+
+Two summary plots (Figures 7 and 8) displayed the correlations of the B-cell assays with each cytokine-antigen combination in the ICS assay. 
+
+
+
+\newpage
 \pagestyle{lscape}
 \begin{landscape}
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -207,10 +229,26 @@ This report presents the correlations between CD4/CD8 T-cell responses measured 
 \begin{center}
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/corrplot_Grp5_BAMA_pooledAntigen-1} 
+\includegraphics[width=\maxwidth]{figure/corrplot_CD4_BAMA_pooledAntigen-1} 
 
 \end{knitrout}
-\caption{Group 5, ICS v/s BAMA by cytokine and pooled antigen colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
+\caption{ICS v/s BAMA assay for CD4 population by cytokine and pooled antigen colored by Group. The fitted simple linear regression line and Spearman correlation with one-sided p-value (alternative: true correlation is greater than 0) are indicated.}
+\end{center}
+\end{figure}
+
+
+
+
+
+
+\begin{figure}[H]
+\begin{center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/corrplot_CD8_BAMA_pooledAntigen-1} 
+
+\end{knitrout}
+\caption{ICS v/s BAMA assay for CD8 population by cytokine and pooled antigen colored by Group. The fitted simple linear regression line and Spearman correlation with one-sided p-value (alternative: true correlation is greater than 0) are indicated.}
 \end{center}
 \end{figure}
 
@@ -219,10 +257,10 @@ This report presents the correlations between CD4/CD8 T-cell responses measured 
 \begin{center}
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/corrplot_Grp5_ADCC_pooledAntigen-1} 
+\includegraphics[width=\maxwidth]{figure/corrplot_CD4_ADCC_pooledAntigen-1} 
 
 \end{knitrout}
-\caption{Group 5, ICS v/s ADCC GTL assay by cytokine and pooled antigen colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
+\caption{ICS v/s ADCC GTL assay for CD4 population by cytokine and pooled antigen colored by Group. The fitted simple linear regression line and Spearman correlation with one-sided p-value (alternative: true correlation is greater than 0) are indicated.}
 \end{center}
 \end{figure}
 
@@ -231,47 +269,10 @@ This report presents the correlations between CD4/CD8 T-cell responses measured 
 \begin{center}
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/corrplot_Grp5_NAb_pooledAntigen-1} 
+\includegraphics[width=\maxwidth]{figure/corrplot_CD8_ADCC_pooledAntigen-1} 
 
 \end{knitrout}
-\caption{Group 5, ICS v/s NAB assay by cytokine and pooled antigen colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
-\end{center}
-\end{figure}
-
-
-
-\begin{figure}[H]
-\begin{center}
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/corrplot_Grp6_BAMA_pooledAntigen-1} 
-
-\end{knitrout}
-\caption{Group 6, ICS v/s BAMA by cytokine and pooled antigen colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
-\end{center}
-\end{figure}
-
-
-\begin{figure}[H]
-\begin{center}
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/corrplot_Grp6_ADCC_pooledAntigen-1} 
-
-\end{knitrout}
-\caption{Group 6, ICS v/s ADCC GTL assay by cytokine and pooled antigen colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
-\end{center}
-\end{figure}
-
-
-\begin{figure}[H]
-\begin{center}
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/corrplot_Grp6_NAb_pooledAntigen-1} 
-
-\end{knitrout}
-\caption{Group 6, ICS v/s NAB assay by cytokine and pooled antigen colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
+\caption{ICS v/s ADCC GTL assay for CD8 population by cytokine and pooled antigen colored by Group. The fitted simple linear regression line and Spearman correlation with one-sided p-value (alternative: true correlation is greater than 0) are indicated.}
 \end{center}
 \end{figure}
 
@@ -282,10 +283,10 @@ This report presents the correlations between CD4/CD8 T-cell responses measured 
 \begin{center}
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/corrplot_Grp5-1} 
+\includegraphics[width=\maxwidth]{figure/corrplot_CD4_NAb_pooledAntigen-1} 
 
 \end{knitrout}
-\caption{Plot showing correlation between T-cell ICS assay and B-cell assays in Group 5 faceted by CD4/CD8 T-cell populations and ordered by median correlation for each cytokine antigen combination.}
+\caption{ICS v/s NAb assay for CD4 population by cytokine and pooled antigen colored by Group. The fitted simple linear regression line and Spearman correlation with one-sided p-value (alternative: true correlation is greater than 0) are indicated.}
 \end{center}
 \end{figure}
 
@@ -295,10 +296,38 @@ This report presents the correlations between CD4/CD8 T-cell responses measured 
 \begin{center}
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/corrplot_Grp6-1} 
+\includegraphics[width=\maxwidth]{figure/corrplot_CD8_NAb_pooledAntigen-1} 
 
 \end{knitrout}
-\caption{Plot showing correlation between T-cell ICS assay and B-cell assays in Group 6 faceted by CD4/CD8 T-cell populations and ordered by median correlation for each cytokine antigen combination.}
+\caption{ICS v/s NAb assay for CD8 population by cytokine and pooled antigen colored by Group. The fitted simple linear regression line and Spearman correlation with one-sided p-value (alternative: true correlation is greater than 0) are indicated.}
+\end{center}
+\end{figure}
+
+
+
+
+
+\begin{figure}[H]
+\begin{center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/corrplot_CD4-1} 
+
+\end{knitrout}
+\caption{Plot summarizing correlation between T-cell ICS assay and B-cell assays in CD4 population faceted by Group and ordered by median correlation for each cytokine antigen combination.}
+\end{center}
+\end{figure}
+
+
+
+\begin{figure}[H]
+\begin{center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/corrplot_CD8-1} 
+
+\end{knitrout}
+\caption{Plot summarizing correlation between T-cell ICS assay and B-cell assays in CD8 population faceted by Group and ordered by median correlation for each cytokine antigen combination.}
 \end{center}
 \end{figure}
 

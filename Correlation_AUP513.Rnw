@@ -80,7 +80,8 @@
     \renewcommand{\headrulewidth}{0.4pt}
     \renewcommand{\footrulewidth}{0.4pt}
     \fancyhead[L]{}
-    \fancyhead[R]{\bfseries IPV 001ABMG}
+    \fancyhead[R]{\bfseries AUP513}
+    \fancyhead[C]{}
     \fancyfoot[R]{Page \thepage{}~of~\pageref{LastPage}}
     \fancyfoot[L]{\Rver}}
 %set header and footer for first page
@@ -134,7 +135,7 @@ This report presents the correlations between CD4/CD8 T-cell responses measured 
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 \fancyhead[L]{}
-\fancyhead[R]{\bfseries IPV 001ABMG}
+\fancyhead[R]{\bfseries AUP513}
 \fancyfoot[R]{Page \thepage{}~of~\pageref{LastPage}}
 
 
@@ -144,8 +145,29 @@ This report presents the correlations between CD4/CD8 T-cell responses measured 
 % \makeatother
 
 \newpage
+\pagestyle{regularpage}
+\section{Summary}
+High number of positive correlations with BAMA, ADCC GTL and NAb assays are seen in CD4 as compared to CD8 T-cell population in groups receiving NYVAC-C-KC vaccines. Most of these correlations fail to be significant due to low sample size. 
+
+\section{Statistical Methods}
+The T-cell responses from ICS assay were investigated for correlation with B-cell responses from BAMA, GTL ADCC and NAb assays at week 26 for the groups receiving NYVAC-C-KC vaccines (Groups 5 and 6). Specifically, the DMSO-adjusted percent positivity for each cytokine-antigen(pooled) combination for CD4 and CD8 T-cell populations were assessed for correlation with 
+\begin{enumerate}
+\item AUC against gp120.TV1 antigen for the IgG subclass in the BAMA assay,
+\item Titer against the gp120.TV1 antigen in the ADCC GTL assay, and
+\item Titer against the MW965.26 isolate in the TZM.bl NAb assay.
+\end{enumerate}
+
+Scatter plots (Figures 1-6) for each cytokine-antigen combination from the ICS assay were made against the B-cell assays for each group and T-cell population and annotated with Spearman's rank-order correlation. Significance of the correlations was derived using a one-sided p-value with the alternative that true correlation is greater than 0. A simple linear regression line was fit to the data for each Group and T-cell population. 
+
+Two summary plots (Figures 7 and 8) displayed the correlations of the B-cell assays with each cytokine-antigen combination in the ICS assay. 
+
+
+
+\newpage
 \pagestyle{lscape}
 \begin{landscape}
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -209,7 +231,10 @@ dat <- merge(dat, datgtl, by.x="ics.ptid", by.y="gtl.ptid", all=T)
 dat <- merge(dat, datnab, by.x="ics.ptid", by.y="nab.ptid", all=T)
 dat <- dat[!is.na(dat$ics.tcellsub) & !is.na(dat$bama.auc_calculated) & !is.na(dat$gtl.log10titer) & !is.na(dat$nab.titer_mod),]
 
-datTot <- dat
+dat$ics.group <- as.character(dat$ics.group)
+datTot <- dat[dat$ics.group %in% c("5","6"),]
+datTot$ics.groupOLD <- datTot$ics.group
+datTot$ics.group <- mapvalues(datTot$ics.groupOLD, from = c("5", "6"), to = c("Group 5", "Group 6"))
 @
 % {\scriptsize
 % \tab \textbf{Footnote: \newline}
@@ -221,21 +246,38 @@ datTot <- dat
 
 \begin{figure}[H]
 \begin{center}
-<<corrplot_Grp5_BAMA_pooledAntigen,fig.width=15,fig.height=10, echo=FALSE, warning=FALSE, cache=FALSE>>=
-# CD4 and CD8
-dat <- datTot[datTot$ics.group==5,]
-dat$response <- dat$bama.auc_calculated
-corsCD4 <- ddply(dat[dat$ics.tcellsub=="CD4",], c("ics.antigen","ics.cytokine","ics.tcellsub"), summarise, cor = round(cor(ics.pctpos_adj, response, method="spearman"), 2))
-corsCD8 <- ddply(dat[dat$ics.tcellsub=="CD8",], c("ics.antigen","ics.cytokine","ics.tcellsub"), summarise, cor = round(cor(ics.pctpos_adj, response, method="spearman"), 2))
+<<corrplot_CD4_BAMA_pooledAntigen,fig.width=15,fig.height=10, echo=FALSE, warning=FALSE, cache=FALSE>>=
+library(scales)
+mysqrt_trans <- function() {
+  trans_new("mysqrt", 
+            transform = base::sqrt,
+            inverse = function(x) ifelse(x<0, 0, x^2),
+            domain = c(0, Inf))
+}
 
-ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.tcellsub)) + theme_bw() +
+
+# Groups 5 and 6
+dat <- datTot[datTot$ics.tcellsub=="CD4",]
+dat$response <- dat$bama.auc_calculated
+#corsCD4 <- ddply(dat[dat$ics.tcellsub=="CD4",], c("ics.antigen","ics.cytokine","ics.tcellsub"), summarise, cor = round(cor(ics.pctpos_adj, response, method="spearman"), 2))
+#corsCD8 <- ddply(dat[dat$ics.tcellsub=="CD8",], c("ics.antigen","ics.cytokine","ics.tcellsub"), summarise, cor = round(cor(ics.pctpos_adj, response, method="spearman"), 2))
+
+corsGrp5 <- ddply(dat[dat$ics.group=="Group 5",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+                       paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
+                              round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
+
+corsGrp6 <- ddply(dat[dat$ics.group=="Group 6",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+                       paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
+                              round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
+                              
+ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.group)) + theme_bw() +
   xlab("BAMA AUC") +
   ylab("ICS Percent Positivity adjusted for background") +
   facet_wrap(ics.cytokine ~ ics.antigen, scales="free", ncol=6) + 
   geom_point() +    
-  scale_colour_manual(name="T-cell population", values=c("CD4"="red", "CD8"="blue")) +
-  geom_text(data=corsCD4, size=4, aes(label=paste("r =", cor, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
-  geom_text(data=corsCD8, size=4, aes(label=paste("r =", cor, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
+  scale_colour_manual(name="Group", values=c("Group 5"="red", "Group 6"="blue")) +
+  geom_text(data=corsGrp5, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
+  geom_text(data=corsGrp6, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
   geom_smooth(method=lm, se=FALSE)  +  # Don't add shaded confidence region
   theme(#plot.margin = unit(c(1,1,0,1), "cm"),
     legend.position="top",
@@ -244,109 +286,44 @@ ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.tcellsub)) + theme_bw()
     axis.text.x = element_text(size=10, angle=45, hjust=1),
     axis.text.y = element_text(size=10),
     strip.text.x = element_text(size=15),
-    strip.text.y = element_text(size=15))
+    strip.text.y = element_text(size=15)) + scale_y_continuous(trans = mysqrt_trans(), breaks=c(0,0.01,0.025,0.05,0.1,0.25,0.5,0.75,1.0,1.25,1.5,1.75,2.0), labels=c("0","0.01","0.025","0.05","0.1","0.25","0.5","0.75","1.0","1.25","1.5","1.75","2.0"))
 
-corsAll <- rbind(corsCD4, corsCD8)
-corsAll$Group <- "Group 5"
+corsAll <- rbind(corsGrp5, corsGrp6)
+corsAll$tcellsub <- "CD4"
 corsAll$Assay <- "BAMA"
 @
-\caption{Group 5, ICS v/s BAMA by cytokine and pooled antigen colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
-\end{center}
-\end{figure}
-
-
-\begin{figure}[H]
-\begin{center}
-<<corrplot_Grp5_ADCC_pooledAntigen,fig.width=15,fig.height=10, echo=FALSE, warning=FALSE, cache=FALSE>>=
-# CD4 and CD8
-dat <- datTot[datTot$ics.group==5,]
-dat$response <- dat$gtl.titer
-corsCD4 <- ddply(dat[dat$ics.tcellsub=="CD4",], c("ics.antigen","ics.cytokine","ics.tcellsub"), summarise, cor = round(cor(ics.pctpos_adj, response, method="spearman"), 2))
-corsCD8 <- ddply(dat[dat$ics.tcellsub=="CD8",], c("ics.antigen","ics.cytokine","ics.tcellsub"), summarise, cor = round(cor(ics.pctpos_adj, response, method="spearman"), 2))
-
-ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.tcellsub)) + theme_bw() +
-  xlab("GTL Titer") +
-  ylab("ICS Percent Positivity adjusted for background") +
-  facet_wrap(ics.cytokine ~ ics.antigen, scales="free", ncol=6) + 
-  geom_point() +    
-  scale_colour_manual(name="T-cell population", values=c("CD4"="red", "CD8"="blue")) +
-  geom_text(data=corsCD4, size=4, aes(label=paste("r =", cor, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
-  geom_text(data=corsCD8, size=4, aes(label=paste("r =", cor, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
-  geom_smooth(method=lm, se=FALSE)  +  # Don't add shaded confidence region
-  theme(#plot.margin = unit(c(1,1,0,1), "cm"),
-    legend.position="top",
-    legend.title=element_text(size=12,vjust=-1.6),
-    legend.text=element_text(size=12,vjust=-1.6),
-    axis.text.x = element_text(size=10, angle=45, hjust=1),
-    axis.text.y = element_text(size=10),
-    strip.text.x = element_text(size=15),
-    strip.text.y = element_text(size=15)) 
-
-corsDat <- rbind(corsCD4, corsCD8)
-corsDat$Group <- "Group 5"
-corsDat$Assay <- "ADCC GTL"
-corsAll <- rbind(corsAll, corsDat)
-@
-\caption{Group 5, ICS v/s ADCC GTL assay by cytokine and pooled antigen colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
-\end{center}
-\end{figure}
-
-
-\begin{figure}[H]
-\begin{center}
-<<corrplot_Grp5_NAb_pooledAntigen,fig.width=15,fig.height=10, echo=FALSE, warning=FALSE, cache=FALSE>>=
-# CD4 and CD8
-dat <- datTot[datTot$ics.group==5,]
-dat$response <- dat$nab.titer_mod
-corsCD4 <- ddply(dat[dat$ics.tcellsub=="CD4",], c("ics.antigen","ics.cytokine","ics.tcellsub"), summarise, cor = round(cor(ics.pctpos_adj, response, method="spearman"), 2))
-corsCD8 <- ddply(dat[dat$ics.tcellsub=="CD8",], c("ics.antigen","ics.cytokine","ics.tcellsub"), summarise, cor = round(cor(ics.pctpos_adj, response, method="spearman"), 2))
-
-ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.tcellsub)) + theme_bw() +
-  xlab("NAb Titer") +
-  ylab("ICS Percent Positivity adjusted for background") +
-  facet_wrap(ics.cytokine ~ ics.antigen, scales="free", ncol=6) + 
-  geom_point() +    
-  scale_colour_manual(name="T-cell population", values=c("CD4"="red", "CD8"="blue")) +
-  geom_text(data=corsCD4, size=4, aes(label=paste("r =", cor, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
-  geom_text(data=corsCD8, size=4, aes(label=paste("r =", cor, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
-  geom_smooth(method=lm, se=FALSE)  +  # Don't add shaded confidence region
-  theme(#plot.margin = unit(c(1,1,0,1), "cm"),
-    legend.position="top",
-    legend.title=element_text(size=12,vjust=-1.6),
-    legend.text=element_text(size=12,vjust=-1.6),
-    axis.text.x = element_text(size=10, angle=45, hjust=1),
-    axis.text.y = element_text(size=10),
-    strip.text.x = element_text(size=15),
-    strip.text.y = element_text(size=15))
-
-corsDat <- rbind(corsCD4, corsCD8)
-corsDat$Group <- "Group 5"
-corsDat$Assay <- "NAb"
-corsAll <- rbind(corsAll, corsDat)
-@
-\caption{Group 5, ICS v/s NAB assay by cytokine and pooled antigen colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
+\caption{ICS v/s BAMA assay for CD4 population by cytokine and pooled antigen colored by Group. The fitted simple linear regression line and Spearman correlation with one-sided p-value (alternative: true correlation is greater than 0) are indicated.}
 \end{center}
 \end{figure}
 
 
 
+
+
+
 \begin{figure}[H]
 \begin{center}
-<<corrplot_Grp6_BAMA_pooledAntigen,fig.width=15,fig.height=10, echo=FALSE, warning=FALSE, cache=FALSE>>=
-# CD4 and CD8
-dat <- datTot[datTot$ics.group==6,]
+<<corrplot_CD8_BAMA_pooledAntigen,fig.width=15,fig.height=10, echo=FALSE, warning=FALSE, cache=FALSE>>=
+# Groups 5 and 6
+dat <- datTot[datTot$ics.tcellsub=="CD8",]
 dat$response <- dat$bama.auc_calculated
-corsCD4 <- ddply(dat[dat$ics.tcellsub=="CD4",], c("ics.antigen","ics.cytokine","ics.tcellsub"), summarise, cor = round(cor(ics.pctpos_adj, response, method="spearman"), 2))
-corsCD8 <- ddply(dat[dat$ics.tcellsub=="CD8",], c("ics.antigen","ics.cytokine","ics.tcellsub"), summarise, cor = round(cor(ics.pctpos_adj, response, method="spearman"), 2))
 
-ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.tcellsub)) + theme_bw() +
+corsGrp5 <- ddply(dat[dat$ics.group=="Group 5",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+                       paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
+                              round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
+
+corsGrp6 <- ddply(dat[dat$ics.group=="Group 6",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+                       paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
+                              round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
+                              
+ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.group)) + theme_bw() +
   xlab("BAMA AUC") +
   ylab("ICS Percent Positivity adjusted for background") +
   facet_wrap(ics.cytokine ~ ics.antigen, scales="free", ncol=6) + 
   geom_point() +    
-  scale_colour_manual(name="T-cell population", values=c("CD4"="red", "CD8"="blue")) +
-  geom_text(data=corsCD4, size=4, aes(label=paste("r =", cor, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
-  geom_text(data=corsCD8, size=4, aes(label=paste("r =", cor, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
+  scale_colour_manual(name="Group", values=c("Group 5"="red", "Group 6"="blue")) +
+  geom_text(data=corsGrp5, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
+  geom_text(data=corsGrp6, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
   geom_smooth(method=lm, se=FALSE)  +  # Don't add shaded confidence region
   theme(#plot.margin = unit(c(1,1,0,1), "cm"),
     legend.position="top",
@@ -355,35 +332,41 @@ ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.tcellsub)) + theme_bw()
     axis.text.x = element_text(size=10, angle=45, hjust=1),
     axis.text.y = element_text(size=10),
     strip.text.x = element_text(size=15),
-    strip.text.y = element_text(size=15))  
+    strip.text.y = element_text(size=15)) + scale_y_continuous(trans = mysqrt_trans(), breaks=c(0,0.01,0.025,0.05,0.1,0.25,0.5,0.75,1.0,1.25,1.5,1.75,2.0), labels=c("0","0.01","0.025","0.05","0.1","0.25","0.5","0.75","1.0","1.25","1.5","1.75","2.0"))
 
-corsDat <- rbind(corsCD4, corsCD8)
-corsDat$Group <- "Group 6"
+corsDat <- rbind(corsGrp5, corsGrp6)
+corsDat$tcellsub <- "CD8"
 corsDat$Assay <- "BAMA"
 corsAll <- rbind(corsAll, corsDat)
 @
-\caption{Group 6, ICS v/s BAMA by cytokine and pooled antigen colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
+\caption{ICS v/s BAMA assay for CD8 population by cytokine and pooled antigen colored by Group. The fitted simple linear regression line and Spearman correlation with one-sided p-value (alternative: true correlation is greater than 0) are indicated.}
 \end{center}
 \end{figure}
 
 
 \begin{figure}[H]
 \begin{center}
-<<corrplot_Grp6_ADCC_pooledAntigen,fig.width=15,fig.height=10, echo=FALSE, warning=FALSE, cache=FALSE>>=
-# CD4 and CD8
-dat <- datTot[datTot$ics.group==6,]
+<<corrplot_CD4_ADCC_pooledAntigen,fig.width=15,fig.height=10, echo=FALSE, warning=FALSE, cache=FALSE>>=
+# Groups 5 and 6
+dat <- datTot[datTot$ics.tcellsub=="CD4",]
 dat$response <- dat$gtl.titer
-corsCD4 <- ddply(dat[dat$ics.tcellsub=="CD4",], c("ics.antigen","ics.cytokine","ics.tcellsub"), summarise, cor = round(cor(ics.pctpos_adj, response, method="spearman"), 2))
-corsCD8 <- ddply(dat[dat$ics.tcellsub=="CD8",], c("ics.antigen","ics.cytokine","ics.tcellsub"), summarise, cor = round(cor(ics.pctpos_adj, response, method="spearman"), 2))
 
-ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.tcellsub)) + theme_bw() +
+corsGrp5 <- ddply(dat[dat$ics.group=="Group 5",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+                       paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
+                              round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
+
+corsGrp6 <- ddply(dat[dat$ics.group=="Group 6",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+                       paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
+                              round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
+                              
+ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.group)) + theme_bw() +
   xlab("GTL Titer") +
   ylab("ICS Percent Positivity adjusted for background") +
   facet_wrap(ics.cytokine ~ ics.antigen, scales="free", ncol=6) + 
   geom_point() +    
-  scale_colour_manual(name="T-cell population", values=c("CD4"="red", "CD8"="blue")) +
-  geom_text(data=corsCD4, size=4, aes(label=paste("r =", cor, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
-  geom_text(data=corsCD8, size=4, aes(label=paste("r =", cor, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
+  scale_colour_manual(name="Group", values=c("Group 5"="red", "Group 6"="blue")) +
+  geom_text(data=corsGrp5, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
+  geom_text(data=corsGrp6, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
   geom_smooth(method=lm, se=FALSE)  +  # Don't add shaded confidence region
   theme(#plot.margin = unit(c(1,1,0,1), "cm"),
     legend.position="top",
@@ -392,35 +375,86 @@ ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.tcellsub)) + theme_bw()
     axis.text.x = element_text(size=10, angle=45, hjust=1),
     axis.text.y = element_text(size=10),
     strip.text.x = element_text(size=15),
-    strip.text.y = element_text(size=15)) 
+    strip.text.y = element_text(size=15)) + scale_y_continuous(trans = mysqrt_trans(), breaks=c(0,0.01,0.025,0.05,0.1,0.25,0.5,0.75,1.0,1.25,1.5,1.75,2.0), labels=c("0","0.01","0.025","0.05","0.1","0.25","0.5","0.75","1.0","1.25","1.5","1.75","2.0"))
 
-corsDat <- rbind(corsCD4, corsCD8)
-corsDat$Group <- "Group 6"
+corsDat <- rbind(corsGrp5, corsGrp6)
+corsDat$tcellsub <- "CD4"
 corsDat$Assay <- "ADCC GTL"
 corsAll <- rbind(corsAll, corsDat)
 @
-\caption{Group 6, ICS v/s ADCC GTL assay by cytokine and pooled antigen colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
+\caption{ICS v/s ADCC GTL assay for CD4 population by cytokine and pooled antigen colored by Group. The fitted simple linear regression line and Spearman correlation with one-sided p-value (alternative: true correlation is greater than 0) are indicated.}
 \end{center}
 \end{figure}
 
 
 \begin{figure}[H]
 \begin{center}
-<<corrplot_Grp6_NAb_pooledAntigen,fig.width=15,fig.height=10, echo=FALSE, warning=FALSE, cache=FALSE>>=
-# CD4 and CD8
-dat <- datTot[datTot$ics.group==6,]
-dat$response <- dat$nab.titer_mod
-corsCD4 <- ddply(dat[dat$ics.tcellsub=="CD4",], c("ics.antigen","ics.cytokine","ics.tcellsub"), summarise, cor = round(cor(ics.pctpos_adj, response, method="spearman"), 2))
-corsCD8 <- ddply(dat[dat$ics.tcellsub=="CD8",], c("ics.antigen","ics.cytokine","ics.tcellsub"), summarise, cor = round(cor(ics.pctpos_adj, response, method="spearman"), 2))
+<<corrplot_CD8_ADCC_pooledAntigen,fig.width=15,fig.height=10, echo=FALSE, warning=FALSE, cache=FALSE>>=
+# Groups 5 and 6
+dat <- datTot[datTot$ics.tcellsub=="CD8",]
+dat$response <- dat$gtl.titer
 
-ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.tcellsub)) + theme_bw() +
+corsGrp5 <- ddply(dat[dat$ics.group=="Group 5",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+                       paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
+                              round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
+
+corsGrp6 <- ddply(dat[dat$ics.group=="Group 6",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+                       paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
+                              round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
+                              
+ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.group)) + theme_bw() +
+  xlab("GTL Titer") +
+  ylab("ICS Percent Positivity adjusted for background") +
+  facet_wrap(ics.cytokine ~ ics.antigen, scales="free", ncol=6) + 
+  geom_point() +    
+  scale_colour_manual(name="Group", values=c("Group 5"="red", "Group 6"="blue")) +
+  geom_text(data=corsGrp5, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
+  geom_text(data=corsGrp6, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
+  geom_smooth(method=lm, se=FALSE)  +  # Don't add shaded confidence region
+  theme(#plot.margin = unit(c(1,1,0,1), "cm"),
+    legend.position="top",
+    legend.title=element_text(size=12,vjust=-1.6),
+    legend.text=element_text(size=12,vjust=-1.6),
+    axis.text.x = element_text(size=10, angle=45, hjust=1),
+    axis.text.y = element_text(size=10),
+    strip.text.x = element_text(size=15),
+    strip.text.y = element_text(size=15)) + scale_y_continuous(trans = mysqrt_trans(), breaks=c(0,0.01,0.025,0.05,0.1,0.25,0.5,0.75,1.0,1.25,1.5,1.75,2.0), labels=c("0","0.01","0.025","0.05","0.1","0.25","0.5","0.75","1.0","1.25","1.5","1.75","2.0"))
+
+corsDat <- rbind(corsGrp5, corsGrp6)
+corsDat$tcellsub <- "CD8"
+corsDat$Assay <- "ADCC GTL"
+corsAll <- rbind(corsAll, corsDat)
+@
+\caption{ICS v/s ADCC GTL assay for CD8 population by cytokine and pooled antigen colored by Group. The fitted simple linear regression line and Spearman correlation with one-sided p-value (alternative: true correlation is greater than 0) are indicated.}
+\end{center}
+\end{figure}
+
+
+
+
+\begin{figure}[H]
+\begin{center}
+<<corrplot_CD4_NAb_pooledAntigen,fig.width=15,fig.height=10, echo=FALSE, warning=FALSE, cache=FALSE>>=
+# Groups 5 and 6
+dat <- datTot[datTot$ics.tcellsub=="CD4",]
+dat$response <- dat$nab.titer_mod
+
+corsGrp5 <- ddply(dat[dat$ics.group=="Group 5",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+                       paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
+                              round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
+
+corsGrp6 <- ddply(dat[dat$ics.group=="Group 6",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+                       paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
+                              round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
+                              
+ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.group)) + theme_bw() +
   xlab("NAb Titer") +
   ylab("ICS Percent Positivity adjusted for background") +
   facet_wrap(ics.cytokine ~ ics.antigen, scales="free", ncol=6) + 
   geom_point() +    
-  scale_colour_manual(name="T-cell population", values=c("CD4"="red", "CD8"="blue")) +
-  geom_text(data=corsCD4, size=4, aes(label=paste("r =", cor, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
-  geom_text(data=corsCD8, size=4, aes(label=paste("r =", cor, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
+  scale_colour_manual(name="Group", values=c("Group 5"="red", "Group 6"="blue")) +
+  geom_text(data=corsGrp5, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
+  geom_text(data=corsGrp6, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
   geom_smooth(method=lm, se=FALSE)  +  # Don't add shaded confidence region
   theme(#plot.margin = unit(c(1,1,0,1), "cm"),
     legend.position="top",
@@ -429,33 +463,136 @@ ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.tcellsub)) + theme_bw()
     axis.text.x = element_text(size=10, angle=45, hjust=1),
     axis.text.y = element_text(size=10),
     strip.text.x = element_text(size=15),
-    strip.text.y = element_text(size=15))  
+    strip.text.y = element_text(size=15)) + scale_y_continuous(trans = mysqrt_trans(), breaks=c(0,0.01,0.025,0.05,0.1,0.25,0.5,0.75,1.0,1.25,1.5,1.75,2.0), labels=c("0","0.01","0.025","0.05","0.1","0.25","0.5","0.75","1.0","1.25","1.5","1.75","2.0"))
 
-corsDat <- rbind(corsCD4, corsCD8)
-corsDat$Group <- "Group 6"
+corsDat <- rbind(corsGrp5, corsGrp6)
+corsDat$tcellsub <- "CD4"
 corsDat$Assay <- "NAb"
 corsAll <- rbind(corsAll, corsDat)
+@
+\caption{ICS v/s NAb assay for CD4 population by cytokine and pooled antigen colored by Group. The fitted simple linear regression line and Spearman correlation with one-sided p-value (alternative: true correlation is greater than 0) are indicated.}
+\end{center}
+\end{figure}
+
+
+
+\begin{figure}[H]
+\begin{center}
+<<corrplot_CD8_NAb_pooledAntigen,fig.width=15,fig.height=10, echo=FALSE, warning=FALSE, cache=FALSE>>=
+# Groups 5 and 6
+dat <- datTot[datTot$ics.tcellsub=="CD8",]
+dat$response <- dat$nab.titer_mod
+
+corsGrp5 <- ddply(dat[dat$ics.group=="Group 5",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+                       paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
+                              round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
+
+corsGrp6 <- ddply(dat[dat$ics.group=="Group 6",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+                       paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
+                              round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
+                              
+ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.group)) + theme_bw() +
+  xlab("NAb Titer") +
+  ylab("ICS Percent Positivity adjusted for background") +
+  facet_wrap(ics.cytokine ~ ics.antigen, scales="free", ncol=6) + 
+  geom_point() +    
+  scale_colour_manual(name="Group", values=c("Group 5"="red", "Group 6"="blue")) +
+  geom_text(data=corsGrp5, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
+  geom_text(data=corsGrp6, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
+  geom_smooth(method=lm, se=FALSE)  +  # Don't add shaded confidence region
+  theme(#plot.margin = unit(c(1,1,0,1), "cm"),
+    legend.position="top",
+    legend.title=element_text(size=12,vjust=-1.6),
+    legend.text=element_text(size=12,vjust=-1.6),
+    axis.text.x = element_text(size=10, angle=45, hjust=1),
+    axis.text.y = element_text(size=10),
+    strip.text.x = element_text(size=15),
+    strip.text.y = element_text(size=15)) + scale_y_continuous(trans = mysqrt_trans(), breaks=c(0,0.01,0.025,0.05,0.1,0.25,0.5,0.75,1.0,1.25,1.5,1.75,2.0), labels=c("0","0.01","0.025","0.05","0.1","0.25","0.5","0.75","1.0","1.25","1.5","1.75","2.0"))
+
+corsDat <- rbind(corsGrp5, corsGrp6)
+corsDat$tcellsub <- "CD8"
+corsDat$Assay <- "NAb"
+corsAll <- rbind(corsAll, corsDat)
+@
+\caption{ICS v/s NAb assay for CD8 population by cytokine and pooled antigen colored by Group. The fitted simple linear regression line and Spearman correlation with one-sided p-value (alternative: true correlation is greater than 0) are indicated.}
+\end{center}
+\end{figure}
+
+
+
+
+
+\begin{figure}[H]
+\begin{center}
+<<corrplot_CD4,fig.width=15,fig.height=10, echo=FALSE, warning=FALSE, cache=FALSE>>=
+corsAll$cor <- as.numeric(sapply(strsplit(corsAll$cor.test, ","), "[", 1))
 corsAll$Cytokine.Antigen <- interaction(corsAll$ics.cytokine, corsAll$ics.antigen)
-corsAll <- corsAll[order(-corsAll$cor),]
+# Groups 5 and 6
+dat <- corsAll[corsAll$tcellsub=="CD4",]
+
+# # Split data into 2 datasets for ordering
+# grp5 <-subset(dat, ics.group=="Group 5")
+# grp5agg <- aggregate(grp5$cor, by=list(grp5$Cytokine.Antigen), median)
+# grp5 <- merge(grp5, grp5agg, by.x="Cytokine.Antigen", by.y="Group.1", all=T)
+# grp5$Cytokine.Antigen <- reorder(grp5$Cytokine.Antigen, grp5$x, max)
+# 
+# 
+# grp6 <-subset(dat, ics.group=="Group 6")
+# grp6agg <- aggregate(grp6$cor, by=list(grp6$Cytokine.Antigen), median)
+# grp6 <- merge(grp6, grp6agg, by.x="Cytokine.Antigen", by.y="Group.1", all=T)
+# grp6$Cytokine.Antigen <- reorder(grp6$Cytokine.Antigen, grp6$x, max)
+
+
+ggplot(dat, aes(x=cor, y=reorder(Cytokine.Antigen, cor, median), colour=Assay)) + theme_bw() + geom_point(size=5) +
+ # scale_colour_manual(name="Assay", values=c("BAMA"="red", "ADCC GTL"="blue", "NAb"="green")) +
+  xlab("Correlation") +
+  ylab("Cytokine Antigen Combination") +
+  facet_wrap(~ics.group, ncol=1) +
+  theme(#plot.margin = unit(c(1,1,0,1), "cm"),
+    legend.position="top",
+    legend.title=element_text(size=12,vjust=-1.6),
+    legend.text=element_text(size=12,vjust=-1.6),
+    axis.text.x = element_text(size=10),
+    axis.text.y = element_text(size=10),
+    strip.text.x = element_text(size=13)) + geom_vline(xintercept = 0, linetype = "longdash") 
+
+
+
+# ggplot(mapping = aes(x=cor, y=Cytokine.Antigen)) + 
+#    geom_point(data=grp5, size=5, aes(colour=Assay)) +
+#    geom_point(data=grp6, size=5, aes(colour=Assay)) + theme_bw()  +
+#  # scale_colour_manual(name="Assay", values=c("BAMA"="red", "ADCC GTL"="blue", "NAb"="green")) +
+#   xlab("Correlation") +
+#   ylab("Cytokine Antigen Combination") +
+#   facet_wrap(~ics.group, ncol=1, scales="free_y") +
+#   theme(#plot.margin = unit(c(1,1,0,1), "cm"),
+#     legend.position="top",
+#     legend.title=element_text(size=12,vjust=-1.6),
+#     legend.text=element_text(size=12,vjust=-1.6),
+#     axis.text.x = element_text(size=10),
+#     axis.text.y = element_text(size=10),
+#     strip.text.x = element_text(size=13)) + geom_vline(xintercept = 0, linetype = "longdash") 
+
+   
+
 @
-\caption{Group 6, ICS v/s NAB assay by cytokine and pooled antigen colored by T-cell population. The fitted simple linear regression line and Spearman correlation are indicated.}
+\caption{Plot summarizing correlation between T-cell ICS assay and B-cell assays in CD4 population faceted by Group and ordered by median correlation for each cytokine antigen combination.}
 \end{center}
 \end{figure}
 
 
 
-
 \begin{figure}[H]
 \begin{center}
-<<corrplot_Grp5,fig.width=15,fig.height=10, echo=FALSE, warning=FALSE, cache=FALSE>>=
-# CD4 and CD8
-dat <- corsAll[corsAll$Group=="Group 5",]
+<<corrplot_CD8,fig.width=15,fig.height=10, echo=FALSE, warning=FALSE, cache=FALSE>>=
+# Groups 5 and 6
+dat <- corsAll[corsAll$tcellsub=="CD8",]
 
 ggplot(dat, aes(x=cor, y=reorder(Cytokine.Antigen, cor, median), colour=Assay)) + theme_bw() + geom_point(size=5) +
-  scale_colour_manual(name="T-cell population", values=c("BAMA"="red", "ADCC GTL"="blue", "NAb"="green")) +
+  #scale_colour_manual(name="Assay", values=c("BAMA"="red", "ADCC GTL"="blue", "NAb"="green")) +
   xlab("Correlation") +
   ylab("Cytokine Antigen Combination") +
-  facet_wrap(~ics.tcellsub,ncol=1) +
+  facet_wrap(~ics.group,ncol=1) +
   theme(#plot.margin = unit(c(1,1,0,1), "cm"),
     legend.position="top",
     legend.title=element_text(size=12,vjust=-1.6),
@@ -464,32 +601,7 @@ ggplot(dat, aes(x=cor, y=reorder(Cytokine.Antigen, cor, median), colour=Assay)) 
     axis.text.y = element_text(size=10),
     strip.text.x = element_text(size=13)) + geom_vline(xintercept = 0, linetype = "longdash") 
 @
-\caption{Plot showing correlation between T-cell ICS assay and B-cell assays in Group 5 faceted by CD4/CD8 T-cell populations and ordered by median correlation for each cytokine antigen combination.}
-\end{center}
-\end{figure}
-
-
-
-\begin{figure}[H]
-\begin{center}
-<<corrplot_Grp6,fig.width=15,fig.height=10, echo=FALSE, warning=FALSE, cache=FALSE>>=
-# CD4 and CD8
-dat <- corsAll[corsAll$Group=="Group 6",]
-
-ggplot(dat, aes(x=cor, y=reorder(Cytokine.Antigen, cor, median), colour=Assay)) + theme_bw() + geom_point(size=5) +
-  scale_colour_manual(name="T-cell population", values=c("BAMA"="red", "ADCC GTL"="blue", "NAb"="green")) +
-  xlab("Correlation") +
-  ylab("Cytokine Antigen Combination") +
-  facet_wrap(~ics.tcellsub,ncol=1) +
-  theme(#plot.margin = unit(c(1,1,0,1), "cm"),
-    legend.position="top",
-    legend.title=element_text(size=12,vjust=-1.6),
-    legend.text=element_text(size=12,vjust=-1.6),
-    axis.text.x = element_text(size=10),
-    axis.text.y = element_text(size=10),
-    strip.text.x = element_text(size=13)) + geom_vline(xintercept = 0, linetype = "longdash") 
-@
-\caption{Plot showing correlation between T-cell ICS assay and B-cell assays in Group 6 faceted by CD4/CD8 T-cell populations and ordered by median correlation for each cytokine antigen combination.}
+\caption{Plot summarizing correlation between T-cell ICS assay and B-cell assays in CD8 population faceted by Group and ordered by median correlation for each cytokine antigen combination.}
 \end{center}
 \end{figure}
 
