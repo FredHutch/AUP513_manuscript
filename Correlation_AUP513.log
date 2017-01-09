@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.4.22)  5 JAN 2017 12:14
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.4.22)  9 JAN 2017 15:13
 entering extended mode
  %&-line parsing enabled.
 **Correlation_AUP513.tex
@@ -490,28 +490,28 @@ Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 326.
 (./Correlation_AUP513.aux)
 \openout1 = `Correlation_AUP513.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 142.
-LaTeX Font Info:    ... okay on input line 142.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 142.
-LaTeX Font Info:    ... okay on input line 142.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 142.
-LaTeX Font Info:    ... okay on input line 142.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 142.
-LaTeX Font Info:    ... okay on input line 142.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 142.
-LaTeX Font Info:    ... okay on input line 142.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 142.
-LaTeX Font Info:    ... okay on input line 142.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 142.
-LaTeX Font Info:    ... okay on input line 142.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 142.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 142.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 143.
+LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 143.
+LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 143.
+LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 143.
+LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 143.
+LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 143.
+LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 143.
+LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 143.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 143.
 
 
 (/usr/local/apps/texlive/2009/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 142.
+LaTeX Font Info:    ... okay on input line 143.
 
 (/usr/local/apps/texlive/2009/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -563,7 +563,7 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \AtBeginShipoutBox=\box37
-Package hyperref Info: Link coloring ON on input line 142.
+Package hyperref Info: Link coloring ON on input line 143.
 
 (/usr/local/apps/texlive/2009/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2010/04/17 v2.39 Cross-referencing by name of section
@@ -577,20 +577,20 @@ Package: gettitlestring 2009/12/18 v1.3 Cleanup title references (HO)
 )
 \c@section@level=\count121
 )
-LaTeX Info: Redefining \ref on input line 142.
-LaTeX Info: Redefining \pageref on input line 142.
-LaTeX Info: Redefining \nameref on input line 142.
+LaTeX Info: Redefining \ref on input line 143.
+LaTeX Info: Redefining \pageref on input line 143.
+LaTeX Info: Redefining \nameref on input line 143.
  (./Correlation_AUP513.out) (./Correlation_AUP513.out)
 \@outlinefile=\write3
 \openout3 = `Correlation_AUP513.out'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--159
+Underfull \hbox (badness 10000) in paragraph at lines 154--160
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--159
+Underfull \hbox (badness 10000) in paragraph at lines 154--160
 
  []
 
@@ -606,14 +606,14 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 \openout4 = `Correlation_AUP513.lof'.
 
 
-<logos/scharp2.png, id=9, 761.84625pt x 244.66406pt>
+<logos/scharp2.png, id=19, 761.84625pt x 244.66406pt>
 File: logos/scharp2.png Graphic file (type png)
  <use logos/scharp2.png>
-<logos/new_VISC_logo_color.jpg, id=10, 1003.75pt x 583.17876pt>
+<logos/new_VISC_logo_color.jpg, id=20, 1003.75pt x 583.17876pt>
 File: logos/new_VISC_logo_color.jpg Graphic file (type jpg)
 
 <use logos/new_VISC_logo_color.jpg>
-<logos/FredHutch_h_tag_4col_CMYK_tm.png, id=11, 378.33345pt x 91.42155pt>
+<logos/FredHutch_h_tag_4col_CMYK_tm.png, id=21, 378.33345pt x 91.42155pt>
 File: logos/FredHutch_h_tag_4col_CMYK_tm.png Graphic file (type png)
 
 <use logos/FredHutch_h_tag_4col_CMYK_tm.png>
@@ -658,6 +658,51 @@ tch_h_tag_4col_CMYK_tm.png (PNG copy)>]
 * \@reversemarginfalse
 * (1in=72.27pt, 1cm=28.453pt)
 
+
+
+Package geometry Warning: Over-specification in `v'-direction.
+    `height' (624.25346pt) is ignored.
+
+*geometry* verbose mode - [ newgeometry ] result:
+* driver: pdftex
+* paper: 614.295pt, 794.96999pt (class default)
+* layout: 614.295pt, 794.96999pt
+* switch(es): 
+* h-part:(L,W,R)=(56.9055pt, 500.484pt, 56.9055pt)
+* v-part:(T,H,B)=(85.35826pt, 624.25346pt, 85.35826pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=500.484pt
+* \textheight=624.25346pt
+* \oddsidemargin=-15.36449pt
+* \evensidemargin=-15.36449pt
+* \topmargin=-23.91173pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \footskip=56.0pt
+* \marginparwidth=59.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt, 1cm=28.453pt)
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 13.59999pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[2
+
+
+]
 *geometry* verbose mode - [ newgeometry ] result:
 * driver: pdftex
 * paper: 614.295pt, 794.96999pt (class default)
@@ -690,63 +735,76 @@ tch_h_tag_4col_CMYK_tm.png (PNG copy)>]
 
 
 
-Package xcolor Warning: Incompatible color definition on input line 209.
+Package xcolor Warning: Incompatible color definition on input line 231.
 
-<figure/corrplot_Grp5_BAMA_pooledAntigen-1.pdf, id=35, 1084.05pt x 722.7pt>
-File: figure/corrplot_Grp5_BAMA_pooledAntigen-1.pdf Graphic file (type pdf)
+<figure/corrplot_CD4_BAMA_pooledAntigen-1.pdf, id=63, 1084.05pt x 722.7pt>
+File: figure/corrplot_CD4_BAMA_pooledAntigen-1.pdf Graphic file (type pdf)
 
-<use figure/corrplot_Grp5_BAMA_pooledAntigen-1.pdf>
+<use figure/corrplot_CD4_BAMA_pooledAntigen-1.pdf>
 
-Package xcolor Warning: Incompatible color definition on input line 221.
+Package xcolor Warning: Incompatible color definition on input line 247.
 
-<figure/corrplot_Grp5_ADCC_pooledAntigen-1.pdf, id=36, 1084.05pt x 722.7pt>
-File: figure/corrplot_Grp5_ADCC_pooledAntigen-1.pdf Graphic file (type pdf)
+<figure/corrplot_CD8_BAMA_pooledAntigen-1.pdf, id=64, 1084.05pt x 722.7pt>
+File: figure/corrplot_CD8_BAMA_pooledAntigen-1.pdf Graphic file (type pdf)
 
-<use figure/corrplot_Grp5_ADCC_pooledAntigen-1.pdf> [2
+<use figure/corrplot_CD8_BAMA_pooledAntigen-1.pdf> [3
 
 
+ <./figure/corrplot_CD4_BAMA_pooledAntigen-1.pdf>]
 
- <./figure/corrplot_Grp5_BAMA_pooledAntigen-1.pdf>]
+Package xcolor Warning: Incompatible color definition on input line 259.
 
-Package xcolor Warning: Incompatible color definition on input line 233.
+<figure/corrplot_CD4_ADCC_pooledAntigen-1.pdf, id=76, 1084.05pt x 722.7pt>
+File: figure/corrplot_CD4_ADCC_pooledAntigen-1.pdf Graphic file (type pdf)
 
-<figure/corrplot_Grp5_NAb_pooledAntigen-1.pdf, id=48, 1084.05pt x 722.7pt>
-File: figure/corrplot_Grp5_NAb_pooledAntigen-1.pdf Graphic file (type pdf)
+<use figure/corrplot_CD4_ADCC_pooledAntigen-1.pdf> [4 <./figure/corrplot_CD8_BA
+MA_pooledAntigen-1.pdf>]
 
-<use figure/corrplot_Grp5_NAb_pooledAntigen-1.pdf> [3 <./figure/corrplot_Grp5_A
-DCC_pooledAntigen-1.pdf>]
+Package xcolor Warning: Incompatible color definition on input line 271.
 
-Package xcolor Warning: Incompatible color definition on input line 246.
+<figure/corrplot_CD8_ADCC_pooledAntigen-1.pdf, id=88, 1084.05pt x 722.7pt>
+File: figure/corrplot_CD8_ADCC_pooledAntigen-1.pdf Graphic file (type pdf)
 
-<figure/corrplot_Grp6_BAMA_pooledAntigen-1.pdf, id=60, 1084.05pt x 722.7pt>
-File: figure/corrplot_Grp6_BAMA_pooledAntigen-1.pdf Graphic file (type pdf)
+<use figure/corrplot_CD8_ADCC_pooledAntigen-1.pdf> [5 <./figure/corrplot_CD4_AD
+CC_pooledAntigen-1.pdf>]
 
-<use figure/corrplot_Grp6_BAMA_pooledAntigen-1.pdf> [4 <./figure/corrplot_Grp5_
-NAb_pooledAntigen-1.pdf>]
+Package xcolor Warning: Incompatible color definition on input line 285.
 
-Package xcolor Warning: Incompatible color definition on input line 258.
+<figure/corrplot_CD4_NAb_pooledAntigen-1.pdf, id=100, 1084.05pt x 722.7pt>
+File: figure/corrplot_CD4_NAb_pooledAntigen-1.pdf Graphic file (type pdf)
 
-<figure/corrplot_Grp6_ADCC_pooledAntigen-1.pdf, id=72, 1084.05pt x 722.7pt>
-File: figure/corrplot_Grp6_ADCC_pooledAntigen-1.pdf Graphic file (type pdf)
+<use figure/corrplot_CD4_NAb_pooledAntigen-1.pdf> [6 <./figure/corrplot_CD8_ADC
+C_pooledAntigen-1.pdf>]
 
-<use figure/corrplot_Grp6_ADCC_pooledAntigen-1.pdf> [5 <./figure/corrplot_Grp6_
-BAMA_pooledAntigen-1.pdf>]
+Package xcolor Warning: Incompatible color definition on input line 298.
 
-Package xcolor Warning: Incompatible color definition on input line 270.
+<figure/corrplot_CD8_NAb_pooledAntigen-1.pdf, id=112, 1084.05pt x 722.7pt>
+File: figure/corrplot_CD8_NAb_pooledAntigen-1.pdf Graphic file (type pdf)
 
-<figure/corrplot_Grp6_NAb_pooledAntigen-1.pdf, id=84, 1084.05pt x 722.7pt>
-File: figure/corrplot_Grp6_NAb_pooledAntigen-1.pdf Graphic file (type pdf)
+<use figure/corrplot_CD8_NAb_pooledAntigen-1.pdf> [7 <./figure/corrplot_CD4_NAb
+_pooledAntigen-1.pdf>]
 
-<use figure/corrplot_Grp6_NAb_pooledAntigen-1.pdf> [6 <./figure/corrplot_Grp6_A
-DCC_pooledAntigen-1.pdf>] [7 <./figure/corrplot_Grp6_NAb_pooledAntigen-1.pdf>]
-AED: lastpage setting LastPage
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 281.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 281.
+Package xcolor Warning: Incompatible color definition on input line 313.
+
+<figure/corrplot_CD4-1.pdf, id=125, 1084.05pt x 722.7pt>
+File: figure/corrplot_CD4-1.pdf Graphic file (type pdf)
+
+<use figure/corrplot_CD4-1.pdf> [8 <./figure/corrplot_CD8_NAb_pooledAntigen-1.p
+df>]
+
+Package xcolor Warning: Incompatible color definition on input line 326.
+
+<figure/corrplot_CD8-1.pdf, id=137, 1084.05pt x 722.7pt>
+File: figure/corrplot_CD8-1.pdf Graphic file (type pdf)
+
+<use figure/corrplot_CD8-1.pdf> [9 <./figure/corrplot_CD4-1.pdf>] [10 <./figure
+/corrplot_CD8-1.pdf>] AED: lastpage setting LastPage
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 339.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 339.
  (./Correlation_AUP513.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 281.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 339.
 Package rerunfilecheck Info: File `Correlation_AUP513.out' has not changed.
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-
+(rerunfilecheck)             Checksum: 80C4753D8DE1FAC258236173677C052F;96.
 
  *File List*
  article.cls    2007/10/19 v1.4h Standard LaTeX document class
@@ -831,20 +889,22 @@ Correlation_AUP513.out
 logos/scharp2.png
 logos/new_VISC_logo_color.jpg
 logos/FredHutch_h_tag_4col_CMYK_tm.png
-figure/corrplot_Grp5_BAMA_pooledAntigen-1.pdf
-figure/corrplot_Grp5_ADCC_pooledAntigen-1.pdf
-figure/corrplot_Grp5_NAb_pooledAntigen-1.pdf
-figure/corrplot_Grp6_BAMA_pooledAntigen-1.pdf
-figure/corrplot_Grp6_ADCC_pooledAntigen-1.pdf
-figure/corrplot_Grp6_NAb_pooledAntigen-1.pdf
+figure/corrplot_CD4_BAMA_pooledAntigen-1.pdf
+figure/corrplot_CD8_BAMA_pooledAntigen-1.pdf
+figure/corrplot_CD4_ADCC_pooledAntigen-1.pdf
+figure/corrplot_CD8_ADCC_pooledAntigen-1.pdf
+figure/corrplot_CD4_NAb_pooledAntigen-1.pdf
+figure/corrplot_CD8_NAb_pooledAntigen-1.pdf
+figure/corrplot_CD4-1.pdf
+figure/corrplot_CD8-1.pdf
  ***********
 
  ) 
 Here is how much of TeX's memory you used:
- 8514 strings out of 493774
- 129384 string characters out of 3143266
- 220245 words of memory out of 3000000
- 11607 multiletter control sequences out of 15000+200000
+ 8544 strings out of 493774
+ 129837 string characters out of 3143266
+ 222249 words of memory out of 3000000
+ 11625 multiletter control sequences out of 15000+200000
  7897 words of font info for 28 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
  36i,15n,43p,801b,375s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -853,9 +913,9 @@ Here is how much of TeX's memory you used:
 mbx12.pfb></usr/local/apps/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmr10.pfb></usr/local/apps/texlive/2009/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmr12.pfb>
-Output written on Correlation_AUP513.pdf (7 pages, 1450948 bytes).
+Output written on Correlation_AUP513.pdf (10 pages, 1511808 bytes).
 PDF statistics:
- 126 PDF objects out of 1000 (max. 8388607)
- 14 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 180 PDF objects out of 1000 (max. 8388607)
+ 24 named destinations out of 1000 (max. 500000)
+ 72 words of extra memory for PDF output out of 10000 (max. 10000000)
 
