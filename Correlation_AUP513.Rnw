@@ -234,7 +234,8 @@ dat <- dat[!is.na(dat$ics.tcellsub) & !is.na(dat$bama.auc_calculated) & !is.na(d
 dat$ics.group <- as.character(dat$ics.group)
 datTot <- dat[dat$ics.group %in% c("5","6"),]
 datTot$ics.groupOLD <- datTot$ics.group
-datTot$ics.group <- mapvalues(datTot$ics.groupOLD, from = c("5", "6"), to = c("Group 5", "Group 6"))
+datTot$ics.group <- mapvalues(datTot$ics.groupOLD, from = c("5", "6"), to = c("NYVAC-C-KC", "NYVAC-C-KC-B19R"))
+#datTot$ics.group <- ifelse(datTot$ics.group=="NYVAC-C-KC-B19R", expression(paste("NYVAC-C-KC-", delta, "B19R")), datTot$ics.group)
 @
 % {\scriptsize
 % \tab \textbf{Footnote: \newline}
@@ -262,11 +263,11 @@ dat$response <- dat$bama.auc_calculated
 #corsCD4 <- ddply(dat[dat$ics.tcellsub=="CD4",], c("ics.antigen","ics.cytokine","ics.tcellsub"), summarise, cor = round(cor(ics.pctpos_adj, response, method="spearman"), 2))
 #corsCD8 <- ddply(dat[dat$ics.tcellsub=="CD8",], c("ics.antigen","ics.cytokine","ics.tcellsub"), summarise, cor = round(cor(ics.pctpos_adj, response, method="spearman"), 2))
 
-corsGrp5 <- ddply(dat[dat$ics.group=="Group 5",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+corsGrp5 <- ddply(dat[dat$ics.group=="NYVAC-C-KC",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
                        paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
                               round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
 
-corsGrp6 <- ddply(dat[dat$ics.group=="Group 6",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+corsGrp6 <- ddply(dat[dat$ics.group=="NYVAC-C-KC-B19R",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
                        paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
                               round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
                               
@@ -275,7 +276,7 @@ ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.group)) + theme_bw() +
   ylab("ICS Percent Positivity adjusted for background") +
   facet_wrap(ics.cytokine ~ ics.antigen, scales="free", ncol=6) + 
   geom_point() +    
-  scale_colour_manual(name="Group", values=c("Group 5"="red", "Group 6"="blue")) +
+  scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue")) +
   geom_text(data=corsGrp5, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
   geom_text(data=corsGrp6, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
   geom_smooth(method=lm, se=FALSE)  +  # Don't add shaded confidence region
@@ -308,11 +309,11 @@ corsAll$Assay <- "BAMA"
 dat <- datTot[datTot$ics.tcellsub=="CD8",]
 dat$response <- dat$bama.auc_calculated
 
-corsGrp5 <- ddply(dat[dat$ics.group=="Group 5",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+corsGrp5 <- ddply(dat[dat$ics.group=="NYVAC-C-KC",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
                        paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
                               round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
 
-corsGrp6 <- ddply(dat[dat$ics.group=="Group 6",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+corsGrp6 <- ddply(dat[dat$ics.group=="NYVAC-C-KC-B19R",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
                        paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
                               round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
                               
@@ -321,7 +322,7 @@ ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.group)) + theme_bw() +
   ylab("ICS Percent Positivity adjusted for background") +
   facet_wrap(ics.cytokine ~ ics.antigen, scales="free", ncol=6) + 
   geom_point() +    
-  scale_colour_manual(name="Group", values=c("Group 5"="red", "Group 6"="blue")) +
+  scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue")) +
   geom_text(data=corsGrp5, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
   geom_text(data=corsGrp6, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
   geom_smooth(method=lm, se=FALSE)  +  # Don't add shaded confidence region
@@ -351,11 +352,11 @@ corsAll <- rbind(corsAll, corsDat)
 dat <- datTot[datTot$ics.tcellsub=="CD4",]
 dat$response <- dat$gtl.titer
 
-corsGrp5 <- ddply(dat[dat$ics.group=="Group 5",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+corsGrp5 <- ddply(dat[dat$ics.group=="NYVAC-C-KC",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
                        paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
                               round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
 
-corsGrp6 <- ddply(dat[dat$ics.group=="Group 6",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+corsGrp6 <- ddply(dat[dat$ics.group=="NYVAC-C-KC-B19R",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
                        paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
                               round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
                               
@@ -364,7 +365,7 @@ ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.group)) + theme_bw() +
   ylab("ICS Percent Positivity adjusted for background") +
   facet_wrap(ics.cytokine ~ ics.antigen, scales="free", ncol=6) + 
   geom_point() +    
-  scale_colour_manual(name="Group", values=c("Group 5"="red", "Group 6"="blue")) +
+  scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue")) +
   geom_text(data=corsGrp5, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
   geom_text(data=corsGrp6, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
   geom_smooth(method=lm, se=FALSE)  +  # Don't add shaded confidence region
@@ -394,11 +395,11 @@ corsAll <- rbind(corsAll, corsDat)
 dat <- datTot[datTot$ics.tcellsub=="CD8",]
 dat$response <- dat$gtl.titer
 
-corsGrp5 <- ddply(dat[dat$ics.group=="Group 5",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+corsGrp5 <- ddply(dat[dat$ics.group=="NYVAC-C-KC",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
                        paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
                               round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
 
-corsGrp6 <- ddply(dat[dat$ics.group=="Group 6",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+corsGrp6 <- ddply(dat[dat$ics.group=="NYVAC-C-KC-B19R",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
                        paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
                               round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
                               
@@ -407,7 +408,7 @@ ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.group)) + theme_bw() +
   ylab("ICS Percent Positivity adjusted for background") +
   facet_wrap(ics.cytokine ~ ics.antigen, scales="free", ncol=6) + 
   geom_point() +    
-  scale_colour_manual(name="Group", values=c("Group 5"="red", "Group 6"="blue")) +
+  scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue")) +
   geom_text(data=corsGrp5, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
   geom_text(data=corsGrp6, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
   geom_smooth(method=lm, se=FALSE)  +  # Don't add shaded confidence region
@@ -439,11 +440,11 @@ corsAll <- rbind(corsAll, corsDat)
 dat <- datTot[datTot$ics.tcellsub=="CD4",]
 dat$response <- dat$nab.titer_mod
 
-corsGrp5 <- ddply(dat[dat$ics.group=="Group 5",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+corsGrp5 <- ddply(dat[dat$ics.group=="NYVAC-C-KC",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
                        paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
                               round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
 
-corsGrp6 <- ddply(dat[dat$ics.group=="Group 6",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+corsGrp6 <- ddply(dat[dat$ics.group=="NYVAC-C-KC-B19R",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
                        paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
                               round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
                               
@@ -452,7 +453,7 @@ ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.group)) + theme_bw() +
   ylab("ICS Percent Positivity adjusted for background") +
   facet_wrap(ics.cytokine ~ ics.antigen, scales="free", ncol=6) + 
   geom_point() +    
-  scale_colour_manual(name="Group", values=c("Group 5"="red", "Group 6"="blue")) +
+  scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue")) +
   geom_text(data=corsGrp5, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
   geom_text(data=corsGrp6, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
   geom_smooth(method=lm, se=FALSE)  +  # Don't add shaded confidence region
@@ -483,11 +484,11 @@ corsAll <- rbind(corsAll, corsDat)
 dat <- datTot[datTot$ics.tcellsub=="CD8",]
 dat$response <- dat$nab.titer_mod
 
-corsGrp5 <- ddply(dat[dat$ics.group=="Group 5",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+corsGrp5 <- ddply(dat[dat$ics.group=="NYVAC-C-KC",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
                        paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
                               round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
 
-corsGrp6 <- ddply(dat[dat$ics.group=="Group 6",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
+corsGrp6 <- ddply(dat[dat$ics.group=="NYVAC-C-KC-B19R",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
                        paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
                               round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
                               
@@ -496,7 +497,7 @@ ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.group)) + theme_bw() +
   ylab("ICS Percent Positivity adjusted for background") +
   facet_wrap(ics.cytokine ~ ics.antigen, scales="free", ncol=6) + 
   geom_point() +    
-  scale_colour_manual(name="Group", values=c("Group 5"="red", "Group 6"="blue")) +
+  scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue")) +
   geom_text(data=corsGrp5, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
   geom_text(data=corsGrp6, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
   geom_smooth(method=lm, se=FALSE)  +  # Don't add shaded confidence region
@@ -531,13 +532,13 @@ corsAll$Cytokine.Antigen <- interaction(corsAll$ics.cytokine, corsAll$ics.antige
 dat <- corsAll[corsAll$tcellsub=="CD4",]
 
 # # Split data into 2 datasets for ordering
-# grp5 <-subset(dat, ics.group=="Group 5")
+# grp5 <-subset(dat, ics.group=="NYVAC-C-KC")
 # grp5agg <- aggregate(grp5$cor, by=list(grp5$Cytokine.Antigen), median)
 # grp5 <- merge(grp5, grp5agg, by.x="Cytokine.Antigen", by.y="Group.1", all=T)
 # grp5$Cytokine.Antigen <- reorder(grp5$Cytokine.Antigen, grp5$x, max)
 # 
 # 
-# grp6 <-subset(dat, ics.group=="Group 6")
+# grp6 <-subset(dat, ics.group=="NYVAC-C-KC-B19R")
 # grp6agg <- aggregate(grp6$cor, by=list(grp6$Cytokine.Antigen), median)
 # grp6 <- merge(grp6, grp6agg, by.x="Cytokine.Antigen", by.y="Group.1", all=T)
 # grp6$Cytokine.Antigen <- reorder(grp6$Cytokine.Antigen, grp6$x, max)
