@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.4.22)  9 JAN 2017 15:13
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.4.22)  10 JAN 2017 17:59
 entering extended mode
  %&-line parsing enabled.
 **Correlation_AUP513.tex
@@ -754,7 +754,7 @@ File: figure/corrplot_CD8_BAMA_pooledAntigen-1.pdf Graphic file (type pdf)
 
 Package xcolor Warning: Incompatible color definition on input line 259.
 
-<figure/corrplot_CD4_ADCC_pooledAntigen-1.pdf, id=76, 1084.05pt x 722.7pt>
+<figure/corrplot_CD4_ADCC_pooledAntigen-1.pdf, id=77, 1084.05pt x 722.7pt>
 File: figure/corrplot_CD4_ADCC_pooledAntigen-1.pdf Graphic file (type pdf)
 
 <use figure/corrplot_CD4_ADCC_pooledAntigen-1.pdf> [4 <./figure/corrplot_CD8_BA
@@ -762,7 +762,7 @@ MA_pooledAntigen-1.pdf>]
 
 Package xcolor Warning: Incompatible color definition on input line 271.
 
-<figure/corrplot_CD8_ADCC_pooledAntigen-1.pdf, id=88, 1084.05pt x 722.7pt>
+<figure/corrplot_CD8_ADCC_pooledAntigen-1.pdf, id=90, 1084.05pt x 722.7pt>
 File: figure/corrplot_CD8_ADCC_pooledAntigen-1.pdf Graphic file (type pdf)
 
 <use figure/corrplot_CD8_ADCC_pooledAntigen-1.pdf> [5 <./figure/corrplot_CD4_AD
@@ -770,7 +770,7 @@ CC_pooledAntigen-1.pdf>]
 
 Package xcolor Warning: Incompatible color definition on input line 285.
 
-<figure/corrplot_CD4_NAb_pooledAntigen-1.pdf, id=100, 1084.05pt x 722.7pt>
+<figure/corrplot_CD4_NAb_pooledAntigen-1.pdf, id=103, 1084.05pt x 722.7pt>
 File: figure/corrplot_CD4_NAb_pooledAntigen-1.pdf Graphic file (type pdf)
 
 <use figure/corrplot_CD4_NAb_pooledAntigen-1.pdf> [6 <./figure/corrplot_CD8_ADC
@@ -778,31 +778,31 @@ C_pooledAntigen-1.pdf>]
 
 Package xcolor Warning: Incompatible color definition on input line 298.
 
-<figure/corrplot_CD8_NAb_pooledAntigen-1.pdf, id=112, 1084.05pt x 722.7pt>
+<figure/corrplot_CD8_NAb_pooledAntigen-1.pdf, id=116, 1084.05pt x 722.7pt>
 File: figure/corrplot_CD8_NAb_pooledAntigen-1.pdf Graphic file (type pdf)
 
 <use figure/corrplot_CD8_NAb_pooledAntigen-1.pdf> [7 <./figure/corrplot_CD4_NAb
 _pooledAntigen-1.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 313.
+Package xcolor Warning: Incompatible color definition on input line 390.
 
-<figure/corrplot_CD4-1.pdf, id=125, 1084.05pt x 722.7pt>
+<figure/corrplot_CD4-1.pdf, id=130, 1084.05pt x 722.7pt>
 File: figure/corrplot_CD4-1.pdf Graphic file (type pdf)
 
 <use figure/corrplot_CD4-1.pdf> [8 <./figure/corrplot_CD8_NAb_pooledAntigen-1.p
 df>]
 
-Package xcolor Warning: Incompatible color definition on input line 326.
+Package xcolor Warning: Incompatible color definition on input line 402.
 
-<figure/corrplot_CD8-1.pdf, id=137, 1084.05pt x 722.7pt>
+<figure/corrplot_CD8-1.pdf, id=143, 1084.05pt x 722.7pt>
 File: figure/corrplot_CD8-1.pdf Graphic file (type pdf)
 
 <use figure/corrplot_CD8-1.pdf> [9 <./figure/corrplot_CD4-1.pdf>] [10 <./figure
 /corrplot_CD8-1.pdf>] AED: lastpage setting LastPage
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 339.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 339.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 415.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 415.
  (./Correlation_AUP513.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 339.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 415.
 Package rerunfilecheck Info: File `Correlation_AUP513.out' has not changed.
 (rerunfilecheck)             Checksum: 80C4753D8DE1FAC258236173677C052F;96.
 
@@ -913,9 +913,9 @@ Here is how much of TeX's memory you used:
 mbx12.pfb></usr/local/apps/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmr10.pfb></usr/local/apps/texlive/2009/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmr12.pfb>
-Output written on Correlation_AUP513.pdf (10 pages, 1511808 bytes).
+Output written on Correlation_AUP513.pdf (10 pages, 1506138 bytes).
 PDF statistics:
- 180 PDF objects out of 1000 (max. 8388607)
+ 194 PDF objects out of 1000 (max. 8388607)
  24 named destinations out of 1000 (max. 500000)
  72 words of extra memory for PDF output out of 10000 (max. 10000000)
 

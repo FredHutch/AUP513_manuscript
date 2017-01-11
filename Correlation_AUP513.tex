@@ -307,6 +307,83 @@ Two summary plots (Figures 7 and 8) displayed the correlations of the B-cell ass
 
 
 
+% \begin{figure}[H]
+% \begin{center}
+% <<corrplot_CD4,fig.width=15,fig.height=10, echo=FALSE, warning=FALSE, cache=FALSE>>=
+% corsAll$cor <- as.numeric(sapply(strsplit(corsAll$cor.test, ","), "[", 1))
+% corsAll$pval <- as.numeric(sapply(strsplit(corsAll$cor.test, "="), "[", 2))
+% corsAll$pval_Sig <- ifelse(corsAll$pval < 0.05, "Sig", "Insig")
+% corsAll$Cytokine.Antigen <- interaction(corsAll$ics.cytokine, corsAll$ics.antigen)
+% # Groups 5 and 6
+% dat <- corsAll[corsAll$tcellsub=="CD4",]
+% 
+% # # Split data into 2 datasets for ordering
+% # grp5 <-subset(dat, ics.group=="NYVAC-C-KC")
+% # grp5agg <- aggregate(grp5$cor, by=list(grp5$Cytokine.Antigen), median)
+% # grp5 <- merge(grp5, grp5agg, by.x="Cytokine.Antigen", by.y="Group.1", all=T)
+% # grp5$Cytokine.Antigen <- reorder(grp5$Cytokine.Antigen, grp5$x, max)
+% # 
+% # 
+% # grp6 <-subset(dat, ics.group=="NYVAC-C-KC-B19R")
+% # grp6agg <- aggregate(grp6$cor, by=list(grp6$Cytokine.Antigen), median)
+% # grp6 <- merge(grp6, grp6agg, by.x="Cytokine.Antigen", by.y="Group.1", all=T)
+% # grp6$Cytokine.Antigen <- reorder(grp6$Cytokine.Antigen, grp6$x, max)
+% 
+% 
+% # ggplot(dat, aes(x=cor, y=reorder(Cytokine.Antigen, cor, median), colour=Assay)) + theme_bw() + geom_point(size=5) +
+% #  # scale_colour_manual(name="Assay", values=c("BAMA"="red", "ADCC GTL"="blue", "NAb"="green")) +
+% #   xlab("Correlation") +
+% #   ylab("Cytokine Antigen Combination") +
+% #   facet_wrap(~ics.group, ncol=1) +
+% #   theme(#plot.margin = unit(c(1,1,0,1), "cm"),
+% #     legend.position="top",
+% #     legend.title=element_text(size=12,vjust=-1.6),
+% #     legend.text=element_text(size=12,vjust=-1.6),
+% #     axis.text.x = element_text(size=10),
+% #     axis.text.y = element_text(size=10),
+% #     strip.text.x = element_text(size=13)) + geom_vline(xintercept = 0, linetype = "longdash") 
+% 
+% 
+% dat$ics.group2 <- factor(dat$ics.group, labels = c("NYVAC-C-KC", paste0("NYVAC-C-KC-Delta","~B19R")))
+% tiff(file = "Cor_summary_CD4.tiff", width = 6.87, height = 9.0, units = "in", res = 400)
+% 
+% ggplot(dat, aes(x=cor, y=reorder(Cytokine.Antigen, cor, median), colour=Assay, shape=pval_Sig)) + theme_bw() + geom_point(size=5) +
+%   # scale_colour_manual(name="Assay", values=c("BAMA"="red", "ADCC GTL"="blue", "NAb"="green")) +
+%   xlab("Correlation") +
+%   ylab("Cytokine Antigen Combination") +
+%   #facet_grid(~ics.group,labeller = label_bquote(paste("NYVAC-C-KC-",delta,"B19R"))) +
+%   facet_grid(~ics.group2,labeller = label_parsed) +
+%   theme(#plot.margin = unit(c(1,1,0,1), "cm"),
+%     legend.position="top",
+%     legend.title=element_text(size=15,vjust=-1.6),
+%     legend.text=element_text(size=15,vjust=-1.6),
+%     axis.text.x = element_text(size=12),
+%     axis.text.y = element_text(size=12),
+%     axis.title.x = element_text(size=15, vjust=-0.75),
+%     axis.title.y = element_text(size=15, vjust=1.5),
+%     strip.text.x = element_text(size=14)) + geom_vline(xintercept = 0, linetype = "longdash") 
+% 
+% dev.off() 
+% # ggplot(mapping = aes(x=cor, y=Cytokine.Antigen)) + 
+% #    geom_point(data=grp5, size=5, aes(colour=Assay)) +
+% #    geom_point(data=grp6, size=5, aes(colour=Assay)) + theme_bw()  +
+% #  # scale_colour_manual(name="Assay", values=c("BAMA"="red", "ADCC GTL"="blue", "NAb"="green")) +
+% #   xlab("Correlation") +
+% #   ylab("Cytokine Antigen Combination") +
+% #   facet_wrap(~ics.group, ncol=1, scales="free_y") +
+% #   theme(#plot.margin = unit(c(1,1,0,1), "cm"),
+% #     legend.position="top",
+% #     legend.title=element_text(size=12,vjust=-1.6),
+% #     legend.text=element_text(size=12,vjust=-1.6),
+% #     axis.text.x = element_text(size=10),
+% #     axis.text.y = element_text(size=10),
+% #     strip.text.x = element_text(size=13)) + geom_vline(xintercept = 0, linetype = "longdash") 
+% 
+% @
+% \caption{Plot summarizing correlation between T-cell ICS assay and B-cell assays in CD4 population faceted by Group and ordered by median correlation for each cytokine antigen combination.}
+% \end{center}
+% \end{figure}
+
 \begin{figure}[H]
 \begin{center}
 \begin{knitrout}
@@ -317,7 +394,6 @@ Two summary plots (Figures 7 and 8) displayed the correlations of the B-cell ass
 \caption{Plot summarizing correlation between T-cell ICS assay and B-cell assays in CD4 population faceted by Group and ordered by median correlation for each cytokine antigen combination.}
 \end{center}
 \end{figure}
-
 
 
 \begin{figure}[H]

@@ -270,13 +270,17 @@ corsGrp5 <- ddply(dat[dat$ics.group=="NYVAC-C-KC",], c("ics.antigen","ics.cytoki
 corsGrp6 <- ddply(dat[dat$ics.group=="NYVAC-C-KC-B19R",], c("ics.antigen","ics.cytokine","ics.group"), summarise, cor.test = 
                        paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
                               round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
-                              
+
+my.labs <- list(bquote(paste("NYVAC-C-KC")),bquote(paste("NYVAC-C-KC-",Delta,"B19R")))
+
 ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.group)) + theme_bw() +
   xlab("BAMA AUC") +
   ylab("ICS Percent Positivity adjusted for background") +
   facet_wrap(ics.cytokine ~ ics.antigen, scales="free", ncol=6) + 
   geom_point() +    
-  scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue")) +
+  #scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue")) +
+  scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue"), breaks=c("NYVAC-C-KC", "NYVAC-C-KC-B19R"), labels=my.labs) +
+  #scale_colour_manual(values=1:2,breaks=c("alpha","beta"), labels=my.labs)
   geom_text(data=corsGrp5, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
   geom_text(data=corsGrp6, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
   geom_smooth(method=lm, se=FALSE)  +  # Don't add shaded confidence region
@@ -317,12 +321,15 @@ corsGrp6 <- ddply(dat[dat$ics.group=="NYVAC-C-KC-B19R",], c("ics.antigen","ics.c
                        paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
                               round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
                               
+my.labs <- list(bquote(paste("NYVAC-C-KC")),bquote(paste("NYVAC-C-KC-",Delta,"B19R")))
+
 ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.group)) + theme_bw() +
   xlab("BAMA AUC") +
   ylab("ICS Percent Positivity adjusted for background") +
   facet_wrap(ics.cytokine ~ ics.antigen, scales="free", ncol=6) + 
   geom_point() +    
-  scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue")) +
+  #scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue")) +
+  scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue"), breaks=c("NYVAC-C-KC", "NYVAC-C-KC-B19R"), labels=my.labs) +
   geom_text(data=corsGrp5, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
   geom_text(data=corsGrp6, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
   geom_smooth(method=lm, se=FALSE)  +  # Don't add shaded confidence region
@@ -360,12 +367,15 @@ corsGrp6 <- ddply(dat[dat$ics.group=="NYVAC-C-KC-B19R",], c("ics.antigen","ics.c
                        paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
                               round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
                               
+my.labs <- list(bquote(paste("NYVAC-C-KC")),bquote(paste("NYVAC-C-KC-",Delta,"B19R")))
+
 ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.group)) + theme_bw() +
   xlab("GTL Titer") +
   ylab("ICS Percent Positivity adjusted for background") +
   facet_wrap(ics.cytokine ~ ics.antigen, scales="free", ncol=6) + 
   geom_point() +    
-  scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue")) +
+  #scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue")) +
+  scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue"), breaks=c("NYVAC-C-KC", "NYVAC-C-KC-B19R"), labels=my.labs) +
   geom_text(data=corsGrp5, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
   geom_text(data=corsGrp6, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
   geom_smooth(method=lm, se=FALSE)  +  # Don't add shaded confidence region
@@ -403,12 +413,15 @@ corsGrp6 <- ddply(dat[dat$ics.group=="NYVAC-C-KC-B19R",], c("ics.antigen","ics.c
                        paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
                               round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
                               
+my.labs <- list(bquote(paste("NYVAC-C-KC")),bquote(paste("NYVAC-C-KC-",Delta,"B19R")))
+
 ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.group)) + theme_bw() +
   xlab("GTL Titer") +
   ylab("ICS Percent Positivity adjusted for background") +
   facet_wrap(ics.cytokine ~ ics.antigen, scales="free", ncol=6) + 
   geom_point() +    
-  scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue")) +
+  #scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue")) +
+  scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue"), breaks=c("NYVAC-C-KC", "NYVAC-C-KC-B19R"), labels=my.labs) +
   geom_text(data=corsGrp5, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
   geom_text(data=corsGrp6, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
   geom_smooth(method=lm, se=FALSE)  +  # Don't add shaded confidence region
@@ -448,12 +461,15 @@ corsGrp6 <- ddply(dat[dat$ics.group=="NYVAC-C-KC-B19R",], c("ics.antigen","ics.c
                        paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
                               round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
                               
+my.labs <- list(bquote(paste("NYVAC-C-KC")),bquote(paste("NYVAC-C-KC-",Delta,"B19R")))
+
 ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.group)) + theme_bw() +
   xlab("NAb Titer") +
   ylab("ICS Percent Positivity adjusted for background") +
   facet_wrap(ics.cytokine ~ ics.antigen, scales="free", ncol=6) + 
   geom_point() +    
-  scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue")) +
+  #scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue")) +
+  scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue"), breaks=c("NYVAC-C-KC", "NYVAC-C-KC-B19R"), labels=my.labs) +
   geom_text(data=corsGrp5, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
   geom_text(data=corsGrp6, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
   geom_smooth(method=lm, se=FALSE)  +  # Don't add shaded confidence region
@@ -492,12 +508,15 @@ corsGrp6 <- ddply(dat[dat$ics.group=="NYVAC-C-KC-B19R",], c("ics.antigen","ics.c
                        paste(round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$estimate[[1]], 2), ", pval = ",
                               round(cor.test(ics.pctpos_adj, response, method="spearm", alternative="g")$p.value, 2)))
                               
+my.labs <- list(bquote(paste("NYVAC-C-KC")),bquote(paste("NYVAC-C-KC-",Delta,"B19R")))
+
 ggplot(dat, aes(x=response, y=ics.pctpos_adj, colour=ics.group)) + theme_bw() +
   xlab("NAb Titer") +
   ylab("ICS Percent Positivity adjusted for background") +
   facet_wrap(ics.cytokine ~ ics.antigen, scales="free", ncol=6) + 
   geom_point() +    
-  scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue")) +
+  #scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue")) +
+  scale_colour_manual(name="Group", values=c("NYVAC-C-KC"="red", "NYVAC-C-KC-B19R"="blue"), breaks=c("NYVAC-C-KC", "NYVAC-C-KC-B19R"), labels=my.labs) +
   geom_text(data=corsGrp5, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=1.2, color="red") + 
   geom_text(data=corsGrp6, size=4, aes(label=paste("r =", cor.test, sep=" ")), x=-Inf, y=Inf, hjust=-0.2, vjust=3.0, color = "blue") + 
   geom_smooth(method=lm, se=FALSE)  +  # Don't add shaded confidence region
@@ -523,64 +542,115 @@ corsAll <- rbind(corsAll, corsDat)
 
 
 
+% \begin{figure}[H]
+% \begin{center}
+% <<corrplot_CD4,fig.width=15,fig.height=10, echo=FALSE, warning=FALSE, cache=FALSE>>=
+% corsAll$cor <- as.numeric(sapply(strsplit(corsAll$cor.test, ","), "[", 1))
+% corsAll$pval <- as.numeric(sapply(strsplit(corsAll$cor.test, "="), "[", 2))
+% corsAll$pval_Sig <- ifelse(corsAll$pval < 0.05, "Sig", "Insig")
+% corsAll$Cytokine.Antigen <- interaction(corsAll$ics.cytokine, corsAll$ics.antigen)
+% # Groups 5 and 6
+% dat <- corsAll[corsAll$tcellsub=="CD4",]
+% 
+% # # Split data into 2 datasets for ordering
+% # grp5 <-subset(dat, ics.group=="NYVAC-C-KC")
+% # grp5agg <- aggregate(grp5$cor, by=list(grp5$Cytokine.Antigen), median)
+% # grp5 <- merge(grp5, grp5agg, by.x="Cytokine.Antigen", by.y="Group.1", all=T)
+% # grp5$Cytokine.Antigen <- reorder(grp5$Cytokine.Antigen, grp5$x, max)
+% # 
+% # 
+% # grp6 <-subset(dat, ics.group=="NYVAC-C-KC-B19R")
+% # grp6agg <- aggregate(grp6$cor, by=list(grp6$Cytokine.Antigen), median)
+% # grp6 <- merge(grp6, grp6agg, by.x="Cytokine.Antigen", by.y="Group.1", all=T)
+% # grp6$Cytokine.Antigen <- reorder(grp6$Cytokine.Antigen, grp6$x, max)
+% 
+% 
+% # ggplot(dat, aes(x=cor, y=reorder(Cytokine.Antigen, cor, median), colour=Assay)) + theme_bw() + geom_point(size=5) +
+% #  # scale_colour_manual(name="Assay", values=c("BAMA"="red", "ADCC GTL"="blue", "NAb"="green")) +
+% #   xlab("Correlation") +
+% #   ylab("Cytokine Antigen Combination") +
+% #   facet_wrap(~ics.group, ncol=1) +
+% #   theme(#plot.margin = unit(c(1,1,0,1), "cm"),
+% #     legend.position="top",
+% #     legend.title=element_text(size=12,vjust=-1.6),
+% #     legend.text=element_text(size=12,vjust=-1.6),
+% #     axis.text.x = element_text(size=10),
+% #     axis.text.y = element_text(size=10),
+% #     strip.text.x = element_text(size=13)) + geom_vline(xintercept = 0, linetype = "longdash") 
+% 
+% 
+% dat$ics.group2 <- factor(dat$ics.group, labels = c("NYVAC-C-KC", paste0("NYVAC-C-KC-Delta","~B19R")))
+% tiff(file = "Cor_summary_CD4.tiff", width = 6.87, height = 9.0, units = "in", res = 400)
+% 
+% ggplot(dat, aes(x=cor, y=reorder(Cytokine.Antigen, cor, median), colour=Assay, shape=pval_Sig)) + theme_bw() + geom_point(size=5) +
+%   # scale_colour_manual(name="Assay", values=c("BAMA"="red", "ADCC GTL"="blue", "NAb"="green")) +
+%   xlab("Correlation") +
+%   ylab("Cytokine Antigen Combination") +
+%   #facet_grid(~ics.group,labeller = label_bquote(paste("NYVAC-C-KC-",delta,"B19R"))) +
+%   facet_grid(~ics.group2,labeller = label_parsed) +
+%   theme(#plot.margin = unit(c(1,1,0,1), "cm"),
+%     legend.position="top",
+%     legend.title=element_text(size=15,vjust=-1.6),
+%     legend.text=element_text(size=15,vjust=-1.6),
+%     axis.text.x = element_text(size=12),
+%     axis.text.y = element_text(size=12),
+%     axis.title.x = element_text(size=15, vjust=-0.75),
+%     axis.title.y = element_text(size=15, vjust=1.5),
+%     strip.text.x = element_text(size=14)) + geom_vline(xintercept = 0, linetype = "longdash") 
+% 
+% dev.off() 
+% # ggplot(mapping = aes(x=cor, y=Cytokine.Antigen)) + 
+% #    geom_point(data=grp5, size=5, aes(colour=Assay)) +
+% #    geom_point(data=grp6, size=5, aes(colour=Assay)) + theme_bw()  +
+% #  # scale_colour_manual(name="Assay", values=c("BAMA"="red", "ADCC GTL"="blue", "NAb"="green")) +
+% #   xlab("Correlation") +
+% #   ylab("Cytokine Antigen Combination") +
+% #   facet_wrap(~ics.group, ncol=1, scales="free_y") +
+% #   theme(#plot.margin = unit(c(1,1,0,1), "cm"),
+% #     legend.position="top",
+% #     legend.title=element_text(size=12,vjust=-1.6),
+% #     legend.text=element_text(size=12,vjust=-1.6),
+% #     axis.text.x = element_text(size=10),
+% #     axis.text.y = element_text(size=10),
+% #     strip.text.x = element_text(size=13)) + geom_vline(xintercept = 0, linetype = "longdash") 
+% 
+% @
+% \caption{Plot summarizing correlation between T-cell ICS assay and B-cell assays in CD4 population faceted by Group and ordered by median correlation for each cytokine antigen combination.}
+% \end{center}
+% \end{figure}
+
 \begin{figure}[H]
 \begin{center}
 <<corrplot_CD4,fig.width=15,fig.height=10, echo=FALSE, warning=FALSE, cache=FALSE>>=
 corsAll$cor <- as.numeric(sapply(strsplit(corsAll$cor.test, ","), "[", 1))
+corsAll$pval <- as.numeric(sapply(strsplit(corsAll$cor.test, "="), "[", 2))
+corsAll$pvalue <- ifelse(corsAll$pval < 0.05, "< 0.05", "Insignificant")
 corsAll$Cytokine.Antigen <- interaction(corsAll$ics.cytokine, corsAll$ics.antigen)
 # Groups 5 and 6
 dat <- corsAll[corsAll$tcellsub=="CD4",]
+dat$ics.group2 <- factor(dat$ics.group, labels = c("NYVAC-C-KC", paste0("NYVAC-C-KC-Delta","~B19R")))
 
-# # Split data into 2 datasets for ordering
-# grp5 <-subset(dat, ics.group=="NYVAC-C-KC")
-# grp5agg <- aggregate(grp5$cor, by=list(grp5$Cytokine.Antigen), median)
-# grp5 <- merge(grp5, grp5agg, by.x="Cytokine.Antigen", by.y="Group.1", all=T)
-# grp5$Cytokine.Antigen <- reorder(grp5$Cytokine.Antigen, grp5$x, max)
-# 
-# 
-# grp6 <-subset(dat, ics.group=="NYVAC-C-KC-B19R")
-# grp6agg <- aggregate(grp6$cor, by=list(grp6$Cytokine.Antigen), median)
-# grp6 <- merge(grp6, grp6agg, by.x="Cytokine.Antigen", by.y="Group.1", all=T)
-# grp6$Cytokine.Antigen <- reorder(grp6$Cytokine.Antigen, grp6$x, max)
-
-
-ggplot(dat, aes(x=cor, y=reorder(Cytokine.Antigen, cor, median), colour=Assay)) + theme_bw() + geom_point(size=5) +
- # scale_colour_manual(name="Assay", values=c("BAMA"="red", "ADCC GTL"="blue", "NAb"="green")) +
+# tiff(file = "Cor_summary_CD4.tiff", width = 6.8, height = 9.0, units = "in", res = 325)
+ggplot(dat, aes(x=cor, y=reorder(Cytokine.Antigen, cor, median), colour=Assay, shape=pvalue)) + theme_bw() + geom_point(size=5, alpha=0.8) +
+  # scale_colour_manual(name="Assay", values=c("BAMA"="red", "ADCC GTL"="blue", "NAb"="green")) +
   xlab("Correlation") +
   ylab("Cytokine Antigen Combination") +
-  facet_wrap(~ics.group, ncol=1) +
+  #facet_grid(~ics.group,labeller = label_bquote(paste("NYVAC-C-KC-",delta,"B19R"))) +
+  facet_grid(~ics.group2,labeller = label_parsed) +
   theme(#plot.margin = unit(c(1,1,0,1), "cm"),
     legend.position="top",
-    legend.title=element_text(size=12,vjust=-1.6),
-    legend.text=element_text(size=12,vjust=-1.6),
-    axis.text.x = element_text(size=10),
-    axis.text.y = element_text(size=10),
-    strip.text.x = element_text(size=13)) + geom_vline(xintercept = 0, linetype = "longdash") 
-
-
-
-# ggplot(mapping = aes(x=cor, y=Cytokine.Antigen)) + 
-#    geom_point(data=grp5, size=5, aes(colour=Assay)) +
-#    geom_point(data=grp6, size=5, aes(colour=Assay)) + theme_bw()  +
-#  # scale_colour_manual(name="Assay", values=c("BAMA"="red", "ADCC GTL"="blue", "NAb"="green")) +
-#   xlab("Correlation") +
-#   ylab("Cytokine Antigen Combination") +
-#   facet_wrap(~ics.group, ncol=1, scales="free_y") +
-#   theme(#plot.margin = unit(c(1,1,0,1), "cm"),
-#     legend.position="top",
-#     legend.title=element_text(size=12,vjust=-1.6),
-#     legend.text=element_text(size=12,vjust=-1.6),
-#     axis.text.x = element_text(size=10),
-#     axis.text.y = element_text(size=10),
-#     strip.text.x = element_text(size=13)) + geom_vline(xintercept = 0, linetype = "longdash") 
-
-   
-
+    legend.title=element_text(size=15,vjust=-1.6),
+    legend.text=element_text(size=15,vjust=-1.6),
+    axis.text.x = element_text(size=12),
+    axis.text.y = element_text(size=12),
+    axis.title.x = element_text(size=15, vjust=-0.75),
+    axis.title.y = element_text(size=15, vjust=1.5),
+    strip.text.x = element_text(size=14)) + geom_vline(xintercept = 0, linetype = "longdash") 
+# dev.off() 
 @
 \caption{Plot summarizing correlation between T-cell ICS assay and B-cell assays in CD4 population faceted by Group and ordered by median correlation for each cytokine antigen combination.}
 \end{center}
 \end{figure}
-
 
 
 \begin{figure}[H]
@@ -588,19 +658,25 @@ ggplot(dat, aes(x=cor, y=reorder(Cytokine.Antigen, cor, median), colour=Assay)) 
 <<corrplot_CD8,fig.width=15,fig.height=10, echo=FALSE, warning=FALSE, cache=FALSE>>=
 # Groups 5 and 6
 dat <- corsAll[corsAll$tcellsub=="CD8",]
+dat$ics.group2 <- factor(dat$ics.group, labels = c("NYVAC-C-KC", paste0("NYVAC-C-KC-Delta","~B19R")))
+# tiff(file = "Cor_summary_CD8.tiff", width = 6.8, height = 9.0, units = "in", res = 325)
 
-ggplot(dat, aes(x=cor, y=reorder(Cytokine.Antigen, cor, median), colour=Assay)) + theme_bw() + geom_point(size=5) +
+ggplot(dat, aes(x=cor, y=reorder(Cytokine.Antigen, cor, median), colour=Assay, shape=pvalue)) + theme_bw() + geom_point(size=5, alpha=0.8) +
   #scale_colour_manual(name="Assay", values=c("BAMA"="red", "ADCC GTL"="blue", "NAb"="green")) +
   xlab("Correlation") +
   ylab("Cytokine Antigen Combination") +
-  facet_wrap(~ics.group,ncol=1) +
+  #facet_wrap(~ics.group,ncol=1) +
+  facet_grid(~ics.group2,labeller = label_parsed) +
   theme(#plot.margin = unit(c(1,1,0,1), "cm"),
     legend.position="top",
-    legend.title=element_text(size=12,vjust=-1.6),
-    legend.text=element_text(size=12,vjust=-1.6),
-    axis.text.x = element_text(size=10),
-    axis.text.y = element_text(size=10),
-    strip.text.x = element_text(size=13)) + geom_vline(xintercept = 0, linetype = "longdash") 
+    legend.title=element_text(size=15,vjust=-1.6),
+    legend.text=element_text(size=15,vjust=-1.6),
+    axis.text.x = element_text(size=12),
+    axis.text.y = element_text(size=12),
+    axis.title.x = element_text(size=15, vjust=-0.75),
+    axis.title.y = element_text(size=15, vjust=1.5),
+    strip.text.x = element_text(size=14)) + geom_vline(xintercept = 0, linetype = "longdash") 
+# dev.off()
 @
 \caption{Plot summarizing correlation between T-cell ICS assay and B-cell assays in CD8 population faceted by Group and ordered by median correlation for each cytokine antigen combination.}
 \end{center}
